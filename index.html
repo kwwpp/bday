@@ -58,7 +58,6 @@
         header { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5rem 2rem 2rem; }
         header h1 { font-size: 3.5rem; color: var(--clay-dark); margin-bottom: 1rem; animation: fadeIn 1.5s ease-out forwards; }
         header p { font-size: 1.4rem; color: var(--sage-dark); font-weight: 400; animation: fadeIn 1.5s ease-out 0.5s forwards; }
-        .celebrate-text { color: var(--red-stamp); font-weight: bold; margin-top: 20px; animation: pulseText 1s infinite alternate; }
         
         /* New Banner Style */
         .banner-img {
@@ -71,8 +70,30 @@
             border: 5px solid white;
             animation: fadeIn 1.5s ease-out forwards;
         }
+        
+        /* Birthday Song Button */
+        .btn-music-player {
+            background: var(--gold);
+            color: #1a1a1a;
+            font-family: 'Noto Serif TC', serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 15px 35px;
+            border-radius: 50px;
+            border: 2px solid #b8860b;
+            cursor: pointer;
+            margin-top: 35px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeIn 1.5s ease-out 1s forwards, pulseText 2s infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-music-player:hover { transform: scale(1.05); background: #fff; }
+        .btn-music-player:active { transform: scale(0.95); }
 
-        @keyframes pulseText { from { transform: scale(1); } to { transform: scale(1.1); } }
+        @keyframes pulseText { from { transform: scale(1); } to { transform: scale(1.05); } }
         .scroll-down { margin-top: 3rem; font-size: 2rem; color: var(--clay); animation: bounce 2s infinite; cursor: pointer; opacity: 0.7; }
 
         section { padding: 5rem 2rem; min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(50px); transition: opacity 1s ease-out, transform 1s ease-out; }
@@ -134,24 +155,6 @@
         #winUI h3 { color: var(--red-stamp); font-size: 1.5rem; margin-bottom: 10px; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- ELECTRONIC INCENSE --- */
-        #incense { background-color: #1c1c1c; color: #eee; text-align: center; }
-        #incense .section-title { color: #eee; }
-        .altar-table { position: relative; width: 300px; height: 300px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
-        .burner { width: 150px; height: 100px; background: linear-gradient(135deg, #b8860b, #8b4513); border-radius: 10px 10px 40px 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); position: relative; z-index: 2; display: flex; justify-content: center; }
-        .burner::before, .burner::after { content: ''; position: absolute; bottom: -10px; width: 20px; height: 25px; background: #8b4513; border-radius: 0 0 10px 10px; }
-        .burner::before { left: 20px; } .burner::after { right: 20px; }
-        .ash-bed { width: 120px; height: 20px; background: var(--incense-ash); border-radius: 50%; position: absolute; top: 10px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
-        .sticks-container { position: absolute; bottom: 80px; display: flex; gap: 20px; opacity: 0; transition: opacity 1s; }
-        .stick { width: 6px; height: 120px; background: #8b0000; position: relative; }
-        .stick::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 10px; background: #ff4500; border-radius: 3px 3px 0 0; box-shadow: 0 0 10px #ff4500; animation: burnGlow 0.5s infinite alternate; }
-        .smoke { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: rgba(255,255,255,0.6); border-radius: 50%; filter: blur(5px); animation: smokeRise 3s infinite; opacity: 0; }
-        .stick .smoke:nth-child(1) { animation-delay: 0s; } .stick .smoke:nth-child(2) { animation-delay: 1s; } .stick .smoke:nth-child(3) { animation-delay: 2s; }
-        @keyframes burnGlow { from { opacity: 0.8; } to { opacity: 1; box-shadow: 0 0 15px orange; } }
-        @keyframes smokeRise { 0% { transform: translate(-50%, 0) scale(1); opacity: 0.5; } 100% { transform: translate(-50%, -100px) scale(3); opacity: 0; } }
-        .btn-incense { background: #8b4513; border: 1px solid #d4af37; color: #d4af37; padding: 15px 40px; font-size: 1.2rem; margin-top: 30px; border-radius: 5px; cursor: pointer; font-family: 'Noto Serif TC', serif; transition: all 0.3s; }
-        .btn-incense:hover { background: #d4af37; color: #333; box-shadow: 0 0 15px #d4af37; }
-
         /* Other Sections */
         #buddhism { background-color: var(--sage); color: white; text-align: center; }
         #buddhism .section-title { color: white; } 
@@ -165,7 +168,7 @@
         #wooden-fish .section-title { color: #eee; }
         .date-card { background: rgba(255,255,255,0.1); padding: 1rem 2rem; border-radius: 15px; margin-bottom: 2rem; border: 1px solid rgba(255,215,0,0.3); display: inline-block; min-width: 300px; }
         .gregorian { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
-        .lunar { font-size: 1rem; color: var(--gold); font-family: 'Noto Serif TC', serif; }
+        .lunar { font-size: 1.2rem; color: var(--gold); font-family: 'Noto Serif TC', serif; }
         .reminder-bar { background: var(--sage-dark); color: #fff; padding: 10px; border-radius: 50px; margin-bottom: 30px; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px; transition: opacity 0.5s; }
         .muyu-container { position: relative; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: transform 0.1s; }
         .muyu-container:active { transform: scale(0.95); }
@@ -208,8 +211,23 @@
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
     <div class="bg-orb orb-3"></div>
+    
+    <!-- Background Zen Music (Meditation) -->
     <audio id="bgMusic" loop="">
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-flute-8763.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- *** IMPROVED MUSIC PLAYER *** -->
+    <!-- 
+         INSTRUCTION: To use your own song:
+         1. Put a file named "birthday.mp3" in the same folder as this HTML file.
+         2. Change src="..." below to src="birthday.mp3"
+         
+         Currently using a reliable test sound (Celebration Sound) so you can hear it works.
+    -->
+    <audio id="birthdaySong" preload="auto">
+        <!-- TEST LINK (Royalty Free Music): -->
+        <source src="BDAY SONG.mp3" type="audio/mpeg">
     </audio>
 
     <nav>
@@ -217,7 +235,6 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#pottery">拉坯 (Clay)</a></li>
             <li><a href="#buddhism">佛系 (Zen)</a></li>
-            <li><a href="#incense">電子上香 (Incense)</a></li>
             <li><a href="#wooden-fish">木魚 (Calendar)</a></li>
             <li><a href="#tcm">智能望診 (Doctor)</a></li>
             <li><a href="#wishes">留言板 (Board)</a></li>
@@ -227,11 +244,17 @@
     <header id="home">
         <!-- *** PLACEHOLDER FOR YOUR UPLOADED IMAGE *** -->
         <!-- Ensure your image is named 'banner.png' and is in the same folder -->
-        <img src="Chiikawa.png" alt="Happy Birthday Teammate" class="banner-img">
+        <img src="Chiikawa2.png" alt="Happy Birthday Teammate" class="banner-img">
         
         <h1>Happy Birthday Lamy!</h1>
         <p>祝你今年：心境好 Zen，作品好勁，身體好掂！<br><span style="font-size: 0.9rem; opacity: 0.8;">(May your mind be Zen, your art be powerful, and your health be great!)</span></p>
-        <div class="celebrate-text"><i class="fas fa-stars"></i> Auto-Party Mode On! <i class="fas fa-stars"></i></div>
+        
+        <!-- FUNNY THEMED BUTTON -->
+        <button class="btn-music-player" id="playSongBtn" onclick="toggleBirthdaySong()">
+            <i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)
+        </button>
+
+        <!-- Auto Party Mode Text Removed -->
         <div class="scroll-down" onclick="document.getElementById('pottery').scrollIntoView()"><i class="fas fa-chevron-down"></i></div>
     </header>
 
@@ -246,8 +269,8 @@
                 <div id="virtualClay"></div>
                 <div id="masterpiece">
                     <div class="party-hat"></div>
-                    <!-- REAL IMAGE OF CHIIKAWA (Updated Link) -->
-                    <img src="https://thumbnail.imgbin.com/10/1/16/chiikawa-cute-cat-doodle-wyqFKUnf_t.jpg" alt="Chiikawa">
+                    <!-- This image source will be replaced by JS when game is won -->
+                    <img src="https://thumbnail.imgbin.com/10/1/16/chiikawa-cute-cat-doodle-wyqFKUnf_t.jpg" alt="Chiikawa" id="resultImage">
                 </div>
             </div>
             <div id="gameControls">
@@ -281,25 +304,12 @@
         <div class="quote-box" id="quoteDisplay">"本来無一物，何處惹塵埃。"</div>
         <button class="btn-zen" onclick="newQuote()"><i class="fas fa-random"></i> 抽句金句 (Get Wisdom)</button>
     </section>
-    
-    <section id="incense">
-        <h2 class="section-title">【電子上香】誠心祈福</h2>
-        <p style="margin-bottom: 2rem; opacity: 0.8;">撳掣上香，心誠則靈。祝願 Lamy 事事順境。</p>
-        <div class="altar-table">
-            <div class="sticks-container" id="incenseSticks">
-                <div class="stick"><div class="smoke"></div><div class="smoke"></div><div class="smoke"></div></div>
-                <div class="stick"><div class="smoke"></div><div class="smoke"></div><div class="smoke"></div></div>
-                <div class="stick"><div class="smoke"></div><div class="smoke"></div><div class="smoke"></div></div>
-            </div>
-            <div class="burner"><div class="ash-bed"></div></div>
-        </div>
-        <button class="btn-incense" onclick="offerIncense()"><i class="fas fa-fire"></i> 敬香 (Offer Incense)</button>
-    </section>
 
     <section id="wooden-fish">
         <h2 class="section-title">【電子木魚】積功德 &amp; 日曆</h2>
         <div class="date-card">
             <div class="gregorian" id="gregorianDate">Loading...</div>
+            <!-- FIXED CHINESE CALENDAR ID -->
             <div class="lunar" id="lunarDate"><i class="fas fa-moon"></i> 農曆 計算中...</div>
         </div>
         <div class="reminder-bar">
@@ -393,7 +403,7 @@
 
         // UPDATED BUDDHIST QUOTES
         const buddhistQuotes = [
-            "本来無一物，何處惹塵埃。", "心無掛礙，無掛礙故，無有恐怖。", "活在當下，日日是好日。",
+            "本來無一物，何處惹塵埃。", "心無掛礙，無掛礙故，無有恐怖。", "活在當下，日日是好日。",
             "隨緣自在，不悲不喜。", "做人最緊要係開心。(TVB 金句亦是禪)", "大肚能容，容天下難容之事。",
             "Peace comes from within.", "緣份到咗，自然會有，唔好強求。", "今日唔知聽日事，聽日先算，今日飲茶。",
             "菩提本無樹，明鏡亦非台。", "凡所有相，皆是虛妄。", "應無所住，而生其心。",
@@ -421,16 +431,36 @@
             { name: "Brittney", msg: "Yo Lamy! 生日大快樂！祝你今年氣場全開，運氣爆燈！" }
         ];
 
+        // --- HELPER: Convert numbers to Chinese Characters ---
+        function toChineseNum(num) {
+            const digits = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+            if (num <= 10) return digits[num];
+            if (num < 20) return '十' + (num % 10 === 0 ? '' : digits[num % 10]);
+            if (num < 30) return '二十' + (num % 10 === 0 ? '' : digits[num % 10]);
+            if (num === 30) return '三十';
+            return '三十一';
+        }
+
         // --- INIT ---
         window.onload = function() { 
             const today = new Date();
             document.getElementById('gregorianDate').innerText = today.toLocaleDateString('zh-HK', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+            
             try {
-                const lunar = new Intl.DateTimeFormat('zh-HK-u-ca-chinese', { month: 'long', day: 'numeric' }).format(today);
-                document.getElementById('lunarDate').innerHTML = `<i class="fas fa-moon"></i> 農曆 ${lunar}`;
+                // 1. Get the base date string with Chinese month/year but usually Arabic days (e.g. 十一月15)
+                const lunarString = new Intl.DateTimeFormat('zh-HK-u-ca-chinese', { month: 'long', day: 'numeric' }).format(today);
+                
+                // 2. Regex replace numbers with Chinese chars
+                const fixedLunar = lunarString.replace(/(\d+)/g, function(match) {
+                    return toChineseNum(parseInt(match));
+                });
+
+                document.getElementById('lunarDate').innerHTML = `<i class="fas fa-moon"></i> 農曆 ${fixedLunar}`;
             } catch(e) {
+                console.log(e);
                 document.getElementById('lunarDate').innerHTML = `<i class="fas fa-moon"></i> 農曆 十一月吉日`;
             }
+
             merit = localStorage.getItem('lamyMerit') ? parseInt(localStorage.getItem('lamyMerit')) : 0;
             document.getElementById('meritCount').innerText = merit;
             renderMessages();
@@ -443,9 +473,55 @@
         }
 
         const bgMusic = document.getElementById('bgMusic');
+        const birthdaySong = document.getElementById('birthdaySong');
+        const playSongBtn = document.getElementById('playSongBtn');
+
+        // Play Zen music initially
         let playPromise = bgMusic.play();
         if (playPromise !== undefined) { playPromise.catch(error => { document.addEventListener('click', startMusicOnce, { once: true }); }); }
-        function startMusicOnce() { bgMusic.play(); bgMusic.volume = 0.4; }
+        function startMusicOnce() { 
+            // Only play if birthday song isn't playing
+            if(birthdaySong.paused) {
+                bgMusic.play().catch(e => console.log("Waiting for user interaction")); 
+                bgMusic.volume = 0.4; 
+            }
+        }
+
+        // --- NEW BIRTHDAY SONG LOGIC ---
+        function toggleBirthdaySong() {
+            try {
+                if (birthdaySong.paused) {
+                    bgMusic.pause(); // Stop the Zen music
+                    birthdaySong.volume = 1.0; // Ensure volume is up
+                    
+                    const playPromise = birthdaySong.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            // Play started
+                            playSongBtn.innerHTML = '<i class="fas fa-pause"></i> 暫停修煉 (Pause Cultivation)';
+                            triggerFireworks();
+                        }).catch(error => {
+                            console.error("Music play error:", error);
+                            alert("播放失敗，請點擊畫面一下再試 (Play failed, please tap screen once and try again)");
+                        });
+                    }
+                    
+                    // When birthday song ends, resume Zen music
+                    birthdaySong.onended = function() {
+                        playSongBtn.innerHTML = '<i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)';
+                        bgMusic.play();
+                    };
+                } else {
+                    birthdaySong.pause();
+                    birthdaySong.currentTime = 0; // Reset to start
+                    playSongBtn.innerHTML = '<i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)';
+                    bgMusic.play(); // Resume Zen music
+                }
+            } catch (err) {
+                console.error("Audio Error:", err);
+            }
+        }
 
         const quoteDisplay = document.getElementById('quoteDisplay');
         function newQuote() { quoteDisplay.style.opacity = 0; setTimeout(() => { const randomQuote = buddhistQuotes[Math.floor(Math.random() * buddhistQuotes.length)]; quoteDisplay.innerText = `"${randomQuote}"`; quoteDisplay.style.opacity = 1; }, 300); }
@@ -454,6 +530,14 @@
         let wheelSpeed = 0, progress = 0, isGameWon = false;
         const rpmBar = document.getElementById('rpmBar'), progressBar = document.getElementById('progressBar'), wheel = document.getElementById('wheel'), clay = document.getElementById('virtualClay'), winMsg = document.getElementById('winUI'), masterpiece = document.getElementById('masterpiece'), gameControls = document.getElementById('gameControls');
         
+        // *** CONFIG: Add your 4 Chiikawa images here ***
+        const chiikawaPrizeImages = [
+            "https://thumbnail.imgbin.com/10/1/16/chiikawa-cute-cat-doodle-wyqFKUnf_t.jpg", // Image 1
+            "https://i.pinimg.com/736x/92/a7/26/92a72607cb6df3d620493d40399544d2.jpg", // Image 2
+            "https://i.pinimg.com/736x/8d/22/48/8d224818cb058444bf4e598095e15d0c.jpg", // Image 3
+            "https://i.pinimg.com/736x/02/38/a7/0238a71f0597342dce4f2334a49e8372.jpg"  // Image 4
+        ];
+
         function kickWheel() { if (isGameWon) return; wheelSpeed += 15; if (wheelSpeed > 100) wheelSpeed = 100; startMusicOnce(); }
         function updateGame() {
             if (isGameWon) return;
@@ -475,6 +559,11 @@
             isGameWon = true;
             gameControls.style.display = "none";
             clay.style.display = "none";
+            
+            // SELECT A RANDOM IMAGE
+            const randomImage = chiikawaPrizeImages[Math.floor(Math.random() * chiikawaPrizeImages.length)];
+            document.getElementById('resultImage').src = randomImage;
+
             masterpiece.style.display = "block";
             winMsg.style.display = "block";
             triggerFireworks();
@@ -491,13 +580,6 @@
             updateGame();
         }
         updateGame();
-
-        // --- ELECTRONIC INCENSE ---
-        function offerIncense() {
-            const sticks = document.getElementById('incenseSticks');
-            if(sticks.style.opacity === '1') { alert("香火正盛，無需再上。 (Incense is already burning)"); return; }
-            playGongSound(); sticks.style.opacity = '1'; setTimeout(() => { sticks.style.opacity = '0'; }, 10000);
-        }
 
         // --- SOUNDS ---
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -584,7 +666,8 @@
             setTimeout(() => {
                 const recipe = tcmRecipes[Math.floor(Math.random() * tcmRecipes.length)];
                 let ingHTML = ""; recipe.ingredients.forEach(ing => { ingHTML += `<li><i class="fas ${ing.icon}" style="color: ${ing.color}"></i> <div>${ing.text}</div></li>`; });
-                tcmContent.innerHTML = `<h3><i class="fas fa-file-prescription"></i> ${recipe.title}</h3><p style="font-style: italic; margin-top: 10px; color: #666;">${recipe.desc}</p><ul class="ingredients">${ingHTML}</ul><p style="font-weight: bold; margin-top: 1rem; color: var(--red-stamp);"><i class="fas fa-check-circle"></i> 醫師 Lamy 專用 (Valid for 1 year)</p>`;
+                // *** PRESERVED SPECIFIC TEXT HERE ***
+                tcmContent.innerHTML = `<h3><i class="fas fa-file-prescription"></i> ${recipe.title}</h3><p style="font-style: italic; margin-top: 10px; color: #666;">${recipe.desc}</p><ul class="ingredients">${ingHTML}</ul><p style="font-weight: bold; margin-top: 1rem; color: var(--red-stamp);"><i class="fas fa-check-circle"></i> Lamy 專用 (Valid for 1 year)</p>`;
                 
                 let actionDiv = document.getElementById('actionButtons');
                 if(!actionDiv) {
@@ -644,5 +727,6 @@
         function renderMessages() { wishesGrid.innerHTML = ''; messageBoardData.forEach(msg => { const card = document.createElement('div'); card.className = 'wish-card'; card.innerHTML = `<div class="wish-text">${msg.msg}</div><div class="wish-author">@ ${msg.name}</div><div class="wish-date">From Team</div>`; wishesGrid.prepend(card); }); }
         function addMessage() { const nameInput = document.getElementById('inputName'); const msgInput = document.getElementById('inputMsg'); if (nameInput.value.trim() === "" || msgInput.value.trim() === "") { alert("請輸入名同埋祝福語！"); return; } const newMsg = { name: nameInput.value, msg: msgInput.value }; messageBoardData.push(newMsg); renderMessages(); nameInput.value = ""; msgInput.value = ""; playWoodenFishSound(); triggerFireworks(); }
     </script>
+
 
 </body></html>

@@ -1,7 +1,7 @@
 <html lang="zh-HK"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Lamy! | 佛系．Chiikawa．養生</title>
+    <title>Happy Birthday Lamy!</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,9 @@
             --red-stamp: #d9534f;
             --wood: #8b5a2b;
             --incense-ash: #a8a8a8;
+            --mark-red: #ff4d4d;
+            --mark-blue: #3498db;
+            --mark-green: #2ecc71;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -59,7 +62,7 @@
         header h1 { font-size: 3.5rem; color: var(--clay-dark); margin-bottom: 1rem; animation: fadeIn 1.5s ease-out forwards; }
         header p { font-size: 1.4rem; color: var(--sage-dark); font-weight: 400; animation: fadeIn 1.5s ease-out 0.5s forwards; }
         
-        /* New Banner Style */
+        /* Banner Style */
         .banner-img {
             max-width: 100%;
             width: 750px;
@@ -131,31 +134,14 @@
         .btn-game { background: var(--clay-dark); color: white; font-size: 1.2rem; padding: 15px 40px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 0 #8c4e36; transition: transform 0.1s; font-family: 'Noto Serif TC', serif; margin-top: 10px; }
         .btn-game:active { transform: translateY(5px); box-shadow: none; }
 
-        /* Replay Button Style */
-        .btn-replay {
-            background-color: var(--gold);
-            color: #333;
-            font-size: 1.1rem;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 0 #b8860b;
-            transition: transform 0.1s;
-            font-family: 'Noto Serif TC', serif;
-            margin-top: 15px;
-            display: inline-block;
-        }
-        .btn-replay:active {
-            transform: translateY(4px);
-            box-shadow: none;
-        }
+        .btn-replay { background-color: var(--gold); color: #333; font-size: 1.1rem; padding: 12px 30px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 0 #b8860b; transition: transform 0.1s; font-family: 'Noto Serif TC', serif; margin-top: 15px; display: inline-block; }
+        .btn-replay:active { transform: translateY(4px); box-shadow: none; }
 
         #winUI { display: none; margin-top: 20px; animation: slideUp 0.5s ease-out; }
         #winUI h3 { color: var(--red-stamp); font-size: 1.5rem; margin-bottom: 10px; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Other Sections */
+        /* Zen Section */
         #buddhism { background-color: var(--sage); color: white; text-align: center; }
         #buddhism .section-title { color: white; } 
         #buddhism .section-title::after { background: white; }
@@ -164,114 +150,124 @@
         .btn-zen { background: transparent; border: 2px solid white; color: white; padding: 12px 35px; font-family: 'Noto Serif TC', serif; font-size: 1.1rem; margin-top: 30px; cursor: pointer; transition: all 0.3s; border-radius: 50px; }
         .btn-zen:hover { background: white; color: var(--sage); }
 
-        /* --- OFFICE TCM STYLES (NEW) --- */
+        /* Office TCM */
         #office-survival { background: transparent; padding-top: 3rem; }
-        .office-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            width: 100%;
-            max-width: 1100px;
-            margin-top: 2rem;
-        }
-        .flip-card-container {
-            background-color: transparent;
-            height: 380px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-            box-shadow: 0 15px 35px rgba(139, 90, 43, 0.15);
-            border-radius: 20px;
-        }
+        .office-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 100%; max-width: 1100px; margin-top: 2rem; }
+        .flip-card-container { background-color: transparent; height: 380px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; box-shadow: 0 15px 35px rgba(139, 90, 43, 0.15); border-radius: 20px; }
         .flip-card-container:hover .flip-card-inner { transform: rotateY(180deg); }
-        
-        .flip-front, .flip-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-            box-sizing: border-box;
-        }
-
-        /* Front: Clean, Zen look */
-        .flip-front {
-            background-color: #fff;
-            border: 2px solid white;
-            color: var(--text);
-        }
+        .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 25px; box-sizing: border-box; }
+        .flip-front { background-color: #fff; border: 2px solid white; color: var(--text); }
         .office-icon { font-size: 4rem; margin-bottom: 1rem; }
         .office-title { font-size: 1.4rem; font-weight: 900; color: var(--sage-dark); margin-bottom: 10px; font-family: 'Noto Serif TC', serif; }
         .office-desc { color: #777; font-size: 0.95rem; margin-bottom: 15px; }
         .office-hint { font-size: 0.8rem; color: var(--clay); border: 1px dashed var(--clay); padding: 5px 12px; border-radius: 20px; }
-
-        /* Back: Healing Sage look */
-        .flip-back {
-            background-color: var(--sage-dark); /* Green/Healing background */
-            color: #f9f5f0;
-            transform: rotateY(180deg);
-            border: 2px solid var(--sage-dark);
-        }
+        .flip-back { background-color: var(--sage-dark); color: #f9f5f0; transform: rotateY(180deg); border: 2px solid var(--sage-dark); }
         .cure-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; width: 80%; font-family: 'Noto Serif TC', serif;}
         .cure-action { font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px; }
         .cure-action strong { color: var(--gold); }
         .point-location { background: rgba(255,255,255,0.15); padding: 12px; border-radius: 10px; font-size: 0.9rem; }
-
-        /* Excuse Generator */
-        .panic-box {
-            margin-top: 4rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-            border: 1px solid var(--sage);
-        }
-        .btn-excuse {
-            background: var(--red-stamp);
-            color: white;
-            font-family: 'Noto Serif TC', serif;
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding: 12px 30px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(217, 83, 79, 0.3);
-            transition: transform 0.2s;
-        }
+        .panic-box { margin-top: 4rem; padding: 2rem; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; max-width: 600px; width: 90%; border: 1px solid var(--sage); }
+        .btn-excuse { background: var(--red-stamp); color: white; font-family: 'Noto Serif TC', serif; font-weight: bold; font-size: 1.1rem; padding: 12px 30px; border-radius: 50px; border: none; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 10px rgba(217, 83, 79, 0.3); transition: transform 0.2s; }
         .btn-excuse:active { transform: scale(0.95); }
-        #excuseResult { 
-            margin-top: 20px; 
-            font-size: 1.2rem; 
-            color: var(--text); 
-            font-weight: bold; 
-            min-height: 1.5em;
+        #excuseResult { margin-top: 20px; font-size: 1.2rem; color: var(--text); font-weight: bold; min-height: 1.5em; font-family: 'Noto Serif TC', serif; }
+
+        /* --- TRANSPORT DASHBOARD (INTEGRATED) --- */
+        #transport { background: var(--cream); border-top: 1px dashed var(--sage); }
+        .transport-dashboard {
+            display: flex; flex-direction: column; gap: 25px; 
+            width: 100%; max-width: 1000px;
+            background: #fff; padding: 30px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 2px solid white;
+        }
+        
+        /* 1. CAMERAS */
+        .tunnel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .live-cam-frame {
+            position: relative; background: #000; border-radius: 15px;
+            overflow: hidden; aspect-ratio: 4/3; border: 4px solid var(--clay);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .live-cam-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s; }
+        .live-cam-frame:hover .live-cam-img { opacity: 1; }
+        .live-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: rgba(255,255,255,0.9); color: var(--text);
+            padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;
+            display: flex; align-items: center; gap: 6px; z-index: 2;
+            font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .live-dot { width: 8px; height: 8px; background-color: var(--red-stamp); border-radius: 50%; animation: pulse 1.5s infinite; }
+
+        /* 2. MTR */
+        .mtr-container { padding: 10px; }
+        .mtr-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; border-bottom: 1px dashed var(--sage); padding-bottom: 10px; color: var(--sage-dark); }
+        .mtr-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .mtr-card-mini {
+            background: #fafafa; border: 1px solid #eee;
+            border-radius: 12px; padding: 15px; transition: transform 0.2s;
+        }
+        .mtr-card-mini:hover { transform: translateY(-3px); border-color: var(--clay); }
+        .mtr-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .mtr-dest-name { font-size: 1rem; font-weight: 700; color: var(--text); font-family: 'Noto Serif TC'; }
+        .mtr-line-tag { font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; color: white; font-weight: bold; text-transform: uppercase; }
+        .mtr-schedule-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+        .mtr-schedule-item { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        .mtr-time-rem { font-weight: bold; color: var(--sage-dark); }
+        .mtr-time-rem.hurry { color: #d35400; }
+        .mtr-time-rem.now { color: var(--red-stamp); animation: flash 1s infinite; font-weight: 900; }
+        .bg-isl { background-color: #007dc5; }
+        .bg-tkl { background-color: #a35eb5; }
+
+        .neon-btn {
+            background: var(--clay-dark); color: white; border: none; padding: 10px 25px;
+            border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.9rem;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.3s; box-shadow: 0 4px 0 #8c4e36; margin-top: 15px;
             font-family: 'Noto Serif TC', serif;
         }
+        .neon-btn:hover { transform: translateY(-2px); background: var(--clay); }
+        .neon-btn:active { transform: translateY(2px); box-shadow: none; }
 
 
+        /* --- UPDATED WOODEN FISH / CALENDAR --- */
         #wooden-fish { background-color: #2a2a2a; color: #eee; text-align: center; }
         #wooden-fish .section-title { color: #eee; }
-        .date-card { background: rgba(255,255,255,0.1); padding: 1rem 2rem; border-radius: 15px; margin-bottom: 2rem; border: 1px solid rgba(255,215,0,0.3); display: inline-block; min-width: 300px; }
-        .gregorian { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
-        .lunar { font-size: 1.2rem; color: var(--gold); font-family: 'Noto Serif TC', serif; }
+        
+        .calendar-box {
+            background: rgba(255,255,255,0.1); 
+            padding: 2rem; 
+            border-radius: 20px; 
+            margin-bottom: 2rem; 
+            border: 1px solid rgba(255,215,0,0.3); 
+            width: 100%; 
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .gregorian { font-size: 1.4rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
+        
+        .almanac-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            text-align: left;
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .almanac-item { display: flex; flex-direction: column; }
+        .almanac-label { font-size: 0.8rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+        .almanac-value { font-size: 1.1rem; font-family: 'Noto Serif TC', serif; font-weight: bold; color: var(--gold); }
+        
+        .yi-ji-row { grid-column: 1 / -1; display: flex; justify-content: space-between; border-top: 1px dashed #555; padding-top: 10px; margin-top: 5px; }
+        .yi-box { color: #90ee90; }
+        .ji-box { color: #ff6b6b; }
+        .yi-ji-label { font-size: 1rem; font-weight: bold; display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; margin-right: 5px;}
+        .yi-box .yi-ji-label { background: #90ee90; color: #000; }
+        .ji-box .yi-ji-label { background: #ff6b6b; color: #fff; }
+
         .reminder-bar { background: var(--sage-dark); color: #fff; padding: 10px; border-radius: 50px; margin-bottom: 30px; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px; transition: opacity 0.5s; }
         .muyu-container { position: relative; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: transform 0.1s; }
         .muyu-container:active { transform: scale(0.95); }
@@ -279,6 +275,88 @@
         .merit-counter { font-size: 1.5rem; margin-top: 20px; font-family: 'Noto Serif TC', serif; }
         .merit-pop { position: absolute; color: var(--gold); font-weight: bold; font-size: 1.5rem; pointer-events: none; animation: floatUp 1s ease-out forwards; }
 
+        /* --- MARK SIX SECTION --- */
+        #marksix { background-color: #fff8f0; }
+        .machine-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+        }
+        .lottery-globe {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 10px solid rgba(212, 175, 55, 0.5);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.1));
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset -10px -10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .mixing-ball {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            display: none; /* Hidden until active */
+        }
+        .machine-base {
+            width: 200px;
+            height: 60px;
+            background: var(--wood);
+            margin: -40px auto 0;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .drawn-balls-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            min-height: 60px;
+            margin-bottom: 2rem;
+        }
+        .lottery-ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.3), inset 2px 2px 5px rgba(255,255,255,0.5);
+            font-family: 'Arial', sans-serif;
+            opacity: 0;
+            transform: scale(0);
+            border: 2px solid white;
+        }
+        .lottery-ball.visible {
+            animation: popBall 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .ball-red { background: radial-gradient(circle at 30% 30%, #ff6b6b, #cc0000); }
+        .ball-blue { background: radial-gradient(circle at 30% 30%, #5dade2, #2980b9); }
+        .ball-green { background: radial-gradient(circle at 30% 30%, #58d68d, #27ae60); }
+
+        @keyframes popBall { to { opacity: 1; transform: scale(1); } }
+        @keyframes mixBalls {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(100px, -100px); }
+            50% { transform: translate(-80px, 50px); }
+            75% { transform: translate(50px, 80px); }
+            100% { transform: translate(-20px, -120px); }
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        @keyframes flash { from { opacity: 1; } to { opacity: 0.5; } }
+
+
+        /* TCM & Wishes */
         #tcm { background: rgba(249, 245, 240, 0.9); }
         .prescription-card { background: #fff; border: 4px double var(--clay-dark); padding: 3rem; width: 100%; max-width: 600px; text-align: center; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.1); min-height: 400px; display: flex; flex-direction: column; justify-content: center; }
         .camera-frame { width: 100%; height: 300px; background: #000; margin-bottom: 20px; position: relative; overflow: hidden; border: 2px solid var(--clay); border-radius: 10px; display: none; }
@@ -329,8 +407,10 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#pottery">拉坯 (Clay)</a></li>
             <li><a href="#buddhism">佛系 (Zen)</a></li>
-            <li><a href="#office-survival">社畜 (Office)</a></li> <!-- NEW LINK -->
-            <li><a href="#wooden-fish">木魚 (Calendar)</a></li>
+            <li><a href="#office-survival">社畜 (Office)</a></li>
+            <li><a href="#transport">運程 (Traffic)</a></li> <!-- NEW LINK -->
+            <li><a href="#wooden-fish">通勝 (Almanac)</a></li>
+            <li><a href="#marksix">六合彩 (Luck)</a></li>
             <li><a href="#tcm">智能望診 (Doctor)</a></li>
             <li><a href="#wishes">留言板 (Board)</a></li>
         </ul>
@@ -351,7 +431,7 @@
     <section id="pottery">
         <h2 class="section-title">【陶藝大挑戰】拉坯出 Chiikawa!</h2>
         <p style="max-width: 600px; text-align: center; margin-bottom: 1rem;">
-            快速撳 "踩油" Keep 住綠色區域，<br>見證舊泥變身做可愛 Chiikawa 陶器!
+            快速撳 "踩油" Keep 住綠色區域 (Easy Mode)，<br>見證舊泥變身做可愛 Chiikawa 陶器!
         </p>
         
         <div class="game-area">
@@ -393,7 +473,6 @@
         <button class="btn-zen" onclick="newQuote()"><i class="fas fa-random"></i> 抽句金句 (Get Wisdom)</button>
     </section>
 
-    <!-- *** NEW SECTION: OFFICE SURVIVAL GUIDE (社畜養生指南) *** -->
     <section id="office-survival">
         <h2 class="section-title">【社畜養生指南】Office Survival</h2>
         <p>職埸如戰場，用 TCM 秘技守護你的身心靈。</p>
@@ -477,14 +556,91 @@
             <button class="btn-excuse" onclick="generateExcuse()"><i class="fas fa-magic"></i> 生成藉口 (Generate Excuse)</button>
         </div>
     </section>
-    <!-- *** END NEW SECTION *** -->
 
-    <section id="wooden-fish">
-        <h2 class="section-title">【電子木魚】積功德 &amp; 日曆</h2>
-        <div class="date-card">
-            <div class="gregorian" id="gregorianDate">Loading...</div>
-            <div class="lunar" id="lunarDate"><i class="fas fa-moon"></i> 農曆 計算中...</div>
+    <!-- NEW TRANSPORT SECTION -->
+    <section id="transport">
+        <h2 class="section-title">【路路亨通】Commuter Zen</h2>
+        <p style="margin-bottom: 20px;">Check if the universe wants you to go home. (紅隧塞車係修行)</p>
+        
+        <div class="transport-dashboard">
+            
+            <!-- 1. TUNNEL CAMS -->
+            <div class="tunnel-grid">
+                <div class="live-cam-frame">
+                    <div class="live-badge"><div class="live-dot"></div> 東隧 (EHC)</div>
+                    <img class="live-cam-img cam-stream" id="cam-ehc" src="https://tdcctv.data.one.gov.hk/H802F.JPG">
+                </div>
+                <div class="live-cam-frame">
+                    <div class="live-badge"><div class="live-dot"></div> 紅隧 (CHT)</div>
+                    <img class="live-cam-img cam-stream" id="cam-cht" src="https://tdcctv.data.one.gov.hk/H207F.JPG">
+                </div>
+                <div class="live-cam-frame">
+                    <div class="live-badge"><div class="live-dot"></div> 西隧 (WHC)</div>
+                    <img class="live-cam-img cam-stream" id="cam-whc" src="https://tdcctv.data.one.gov.hk/H702F.JPG">
+                </div>
+            </div>
+
+            <!-- 2. MTR REAL-TIME -->
+            <div class="mtr-container">
+                <div class="mtr-header">
+                    <i class="fas fa-subway" style="font-size:1.5rem; color:var(--sage-dark);"></i> 
+                    <div>
+                        <h3 style="margin:0; font-size:1.2rem;">Quarry Bay (鰂魚涌) Escape Pods</h3>
+                        <small style="opacity:0.7;">MTR Real-time Schedule</small>
+                    </div>
+                    <div style="margin-left:auto; font-size:0.8rem; opacity:0.6;" id="mtrLastUpdate">Updated: --:--</div>
+                </div>
+                <div class="mtr-cards" id="mtrCards">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #888;">
+                        <i class="fas fa-circle-notch fa-spin"></i> Reading Stars...
+                    </div>
+                </div>
+            </div>
+
+            <button class="neon-btn" style="margin-top:10px; width:100%; align-self:center;" onclick="refreshTransportData()">
+                <i class="fas fa-sync-alt"></i> Refresh Traffic Karma
+            </button>
         </div>
+    </section>
+
+    <!-- UPDATED CALENDAR SECTION -->
+    <section id="wooden-fish">
+        <h2 class="section-title">【電子通勝】積功德 &amp; 宜忌</h2>
+        
+        <div class="calendar-box">
+            <div class="gregorian" id="gregorianDate">Loading...</div>
+            
+            <div class="almanac-grid">
+                <div class="almanac-item">
+                    <span class="almanac-label">農曆 (Lunar)</span>
+                    <span class="almanac-value" id="lunarDate">計算中...</span>
+                </div>
+                <div class="almanac-item">
+                    <span class="almanac-label">節氣 (Solar Term)</span>
+                    <span class="almanac-value" id="solarTerm">計算中...</span>
+                </div>
+                <div class="almanac-item">
+                    <span class="almanac-label">氣溫 (Temp)</span>
+                    <span class="almanac-value" id="tempDisplay">24°C (Office: 16°C)</span>
+                </div>
+                <div class="almanac-item">
+                    <span class="almanac-label">今日運勢 (Luck)</span>
+                    <span class="almanac-value">★★★★★</span>
+                </div>
+                
+                <div class="yi-ji-row">
+                    <div class="yi-box">
+                        <span class="yi-ji-label">宜</span>
+                        <span id="yiText">請假, 飲茶</span>
+                    </div>
+                    <div class="ji-box">
+                        <span class="yi-ji-label">忌</span>
+                        <span id="jiText">OT, 開會</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="reminder-bar">
             <i class="fas fa-bell"></i> <span id="reminderText">溫馨提示：記得飲水，保持水潤！</span>
         </div>
@@ -494,9 +650,30 @@
         <div class="merit-counter">累積功德 (Total): <span id="meritCount">0</span></div>
     </section>
 
+    <!-- NEW MARK SIX SECTION -->
+    <section id="marksix">
+        <h2 class="section-title">【玄學六合彩】Mark Six Fortune</h2>
+        <p>今日有靈感？幫你搖出發達號碼!</p>
+        
+        <div class="machine-container">
+            <div class="lottery-globe" id="lotteryGlobe">
+                <!-- Balls will be injected here by JS -->
+            </div>
+            <div class="machine-base"></div>
+        </div>
+
+        <div class="drawn-balls-container" id="drawnBalls">
+            <!-- Result balls appear here -->
+        </div>
+
+        <button class="btn-music-player" style="margin-top: 0;" onclick="startMarkSix()">
+            <i class="fas fa-ticket-alt"></i> 立即攪珠 (Start Draw)
+        </button>
+    </section>
+
     <section id="tcm">
         <h2 class="section-title">【AI 智能望診】神醫把脈</h2>
-        <p style="margin-bottom: 2rem;">醫師：Lamy，開鏡頭望下氣色，無限次任睇！</p>
+        <p style="margin-bottom: 2rem;">醫師：開鏡頭望下氣色，無限次任睇！</p>
         
         <div class="prescription-card" id="tcmResultCard">
             <div class="stamp" id="stampMark" style="display:none;">大吉<br>Valid</div>
@@ -538,6 +715,10 @@
                 entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
             }, { threshold: 0.1 });
             document.querySelectorAll('section').forEach(section => observer.observe(section));
+            
+            // Start Transport Data
+            refreshTransportData();
+            setInterval(refreshTransportData, 60000);
         });
 
         const canvas = document.getElementById('celebrationCanvas');
@@ -633,6 +814,175 @@
             return '三十一';
         }
 
+        // --- ALMANAC LOGIC ---
+        function updateAlmanac() {
+            // 1. Yi / Ji
+            const yiOptions = ["早走", "飲茶", "請假", "屈蛇", "拉坯", "網購", "吹水"];
+            const jiOptions = ["OT", "開會", "改需求", "Deploy", "回Email", "飲齋啡", "通頂"];
+            
+            // Pick 2 random for each
+            const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            document.getElementById('yiText').innerText = rand(yiOptions) + ", " + rand(yiOptions);
+            document.getElementById('jiText').innerText = rand(jiOptions) + ", " + rand(jiOptions);
+
+            // 2. Solar Term (Approximation for Dec)
+            // In a real app, use a library like 'lunar-javascript'. Hardcoding a close one for demo.
+            document.getElementById('solarTerm').innerText = "大雪 (Major Snow)";
+
+            // 3. Temperature (Mock)
+            const temp = Math.floor(Math.random() * (26 - 18 + 1) + 18);
+            document.getElementById('tempDisplay').innerText = `${temp}°C (Office: 15°C 🥶)`;
+        }
+
+
+        // --- MARK SIX LOGIC ---
+        const lotteryGlobe = document.getElementById('lotteryGlobe');
+        const drawnBallsContainer = document.getElementById('drawnBalls');
+        let isDrawing = false;
+
+        // HK Mark Six Color Rules
+        const redBalls = [1,2,7,8,12,13,18,19,23,24,29,30,34,35,40,45,46];
+        const blueBalls = [3,4,9,10,14,15,20,25,26,31,36,37,41,42,47,48];
+        const greenBalls = [5,6,11,16,17,21,22,27,28,32,33,38,39,43,44,49];
+
+        function getBallClass(num) {
+            if (redBalls.includes(num)) return 'ball-red';
+            if (blueBalls.includes(num)) return 'ball-blue';
+            if (greenBalls.includes(num)) return 'ball-green';
+            return 'ball-red'; // fallback
+        }
+
+        function startMarkSix() {
+            if (isDrawing) return;
+            isDrawing = true;
+            drawnBallsContainer.innerHTML = ''; // Clear previous
+            
+            // Create mixing animation
+            lotteryGlobe.innerHTML = '';
+            for(let i=0; i<15; i++) {
+                const ball = document.createElement('div');
+                ball.className = 'mixing-ball';
+                ball.style.left = (Math.random() * 80 + 10) + '%';
+                ball.style.top = (Math.random() * 80 + 10) + '%';
+                ball.style.display = 'block';
+                // Randomized animation parameters
+                const duration = Math.random() * 0.5 + 0.5;
+                ball.style.animation = `mixBalls ${duration}s infinite linear alternate`;
+                lotteryGlobe.appendChild(ball);
+            }
+            
+            playWoodenFishSound(); // Sound effect start
+
+            // Draw logic
+            let numbers = [];
+            while(numbers.length < 6) {
+                let n = Math.floor(Math.random() * 49) + 1;
+                if(numbers.indexOf(n) === -1) numbers.push(n);
+            }
+
+            // Reveal one by one
+            let drawIndex = 0;
+            const drawInterval = setInterval(() => {
+                if(drawIndex >= 6) {
+                    clearInterval(drawInterval);
+                    lotteryGlobe.innerHTML = ''; // Stop mixing
+                    isDrawing = false;
+                    triggerFireworks();
+                    return;
+                }
+
+                const num = numbers[drawIndex];
+                const ballEl = document.createElement('div');
+                ballEl.className = `lottery-ball ${getBallClass(num)}`;
+                ballEl.innerText = num;
+                drawnBallsContainer.appendChild(ballEl);
+                
+                // Trigger reflow for animation
+                void ballEl.offsetWidth;
+                ballEl.classList.add('visible');
+                playWoodenFishSound(); // Beep on draw
+
+                drawIndex++;
+            }, 800);
+        }
+        
+        
+        /* =========================================
+           TRANSPORT LOGIC (INTEGRATED)
+           ========================================= */
+        const MTR_STATION_CODE = "QUB";
+        const MTR_DIRECTIONS = [
+            { id: "kt", name: "To Kennedy Town", apiLine: "ISL", apiDir: "DOWN", lineClass: "bg-isl" },
+            { id: "cw", name: "To Chai Wan", apiLine: "ISL", apiDir: "UP", lineClass: "bg-isl" },
+            { id: "po", name: "To Po Lam / LOHAS", apiLine: "TKL", apiDir: "UP", lineClass: "bg-tkl" },
+            { id: "np", name: "To North Point", apiLine: "TKL", apiDir: "DOWN", lineClass: "bg-tkl" }
+        ];
+
+        async function refreshTransportData() {
+            updateMTR();
+            // Refresh Cams
+            const cams = document.querySelectorAll('.cam-stream');
+            cams.forEach(img => { 
+                const baseUrl = img.src.split('?')[0];
+                img.src = `${baseUrl}?t=${Date.now()}`; 
+            });
+        }
+
+        async function updateMTR() {
+            const container = document.getElementById('mtrCards');
+            const timeDisplay = document.getElementById('mtrLastUpdate');
+            
+            try {
+                const [resISL, resTKL] = await Promise.all([
+                    fetch(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=ISL&sta=${MTR_STATION_CODE}`),
+                    fetch(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TKL&sta=${MTR_STATION_CODE}`)
+                ]);
+                const dataISL = await resISL.json();
+                const dataTKL = await resTKL.json();
+
+                const combinedData = {
+                    ISL: dataISL.data[`ISL-${MTR_STATION_CODE}`],
+                    TKL: dataTKL.data[`TKL-${MTR_STATION_CODE}`]
+                };
+
+                container.innerHTML = '';
+
+                MTR_DIRECTIONS.forEach(dir => {
+                    let trains = [];
+                    if (combinedData[dir.apiLine] && combinedData[dir.apiLine][dir.apiDir]) {
+                        trains = combinedData[dir.apiLine][dir.apiDir];
+                    }
+
+                    let listHTML = "";
+                    if (trains.length > 0) {
+                        trains.slice(0, 3).forEach(train => {
+                            const trainDate = new Date(train.time.replace(/-/g, "/"));
+                            const diffMins = Math.ceil((trainDate - new Date()) / 60000);
+                            let tClass = diffMins <= 0 ? "mtr-time-rem now" : (diffMins <= 2 ? "mtr-time-rem hurry" : "mtr-time-rem");
+                            let tText = diffMins <= 0 ? "Run!" : `${diffMins} min`;
+
+                            listHTML += `<li class="mtr-schedule-item"><span>${trainDate.getHours().toString().padStart(2,'0')}:${trainDate.getMinutes().toString().padStart(2,'0')}</span><span class="${tClass}">${tText}</span></li>`;
+                        });
+                    } else {
+                        listHTML = `<li class="mtr-schedule-item" style="opacity:0.5;">No data</li>`;
+                    }
+
+                    container.innerHTML += `
+                        <div class="mtr-card-mini">
+                            <div class="mtr-card-top"><div class="mtr-dest-name">${dir.name}</div><div class="mtr-line-tag ${dir.lineClass}">${dir.apiLine}</div></div>
+                            <ul class="mtr-schedule-list">${listHTML}</ul>
+                        </div>`;
+                });
+                
+                const d = new Date();
+                timeDisplay.innerHTML = `Updated: ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+
+            } catch (err) {
+                console.error("MTR Error", err);
+            }
+        }
+
+
         // --- INIT ---
         window.onload = function() { 
             const today = new Date();
@@ -647,11 +997,13 @@
                     return toChineseNum(parseInt(match));
                 });
 
-                document.getElementById('lunarDate').innerHTML = `<i class="fas fa-moon"></i> 農曆 ${fixedLunar}`;
+                document.getElementById('lunarDate').innerHTML = `${fixedLunar}`;
             } catch(e) {
                 console.log(e);
-                document.getElementById('lunarDate').innerHTML = `<i class="fas fa-moon"></i> 農曆 十一月吉日`;
+                document.getElementById('lunarDate').innerHTML = `十一月吉日`;
             }
+
+            updateAlmanac(); // New Function for Yi/Ji/Solar
 
             merit = localStorage.getItem('lamyMerit') ? parseInt(localStorage.getItem('lamyMerit')) : 0;
             document.getElementById('meritCount').innerText = merit;

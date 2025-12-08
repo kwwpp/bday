@@ -1,7 +1,7 @@
 <html lang="zh-HK"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Lamy! | Programmatic Zen</title>
+    <title>Happy Birthday Lamy! | Zen &amp; Clay</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +110,7 @@
             box-shadow: 0 10px 30px rgba(139, 90, 43, 0.2);
             border: 5px solid white;
             animation: fadeIn 1.5s ease-out forwards;
-            background-color: #000; /* Black bg while loading */
+            background-color: #000;
         }
         
         /* Birthday Song Button */
@@ -241,6 +241,20 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 2px solid white;
         }
         
+        /* Traffic Clock Style */
+        .traffic-clock-container {
+            text-align: center;
+            font-family: 'Noto Serif TC', serif;
+            color: var(--sage-dark);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            background: rgba(141, 163, 153, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
         /* 1. CAMERAS - 3x2 Layout using 6-column Grid */
         .tunnel-grid { 
             display: grid; 
@@ -567,7 +581,7 @@
     </nav>
 
     <header id="home">
-        <video class="banner-video" controls="" poster="Chiikawa3.png">
+        <video class="banner-video" id="bannerVideo" controls="" poster="Chiikawa2.png">
             <source src="Chiikawa Bday Video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -735,8 +749,11 @@
 
     <!-- TRANSPORT SECTION -->
     <section id="transport">
-        <h2 class="section-title">實時路面阻塞率<br><small>Live Traffic Jam Impressions: 5 Major Bottlenecks</small></h2>
-        <p style="margin-bottom: 20px;">Check if the universe wants you to go home. (Refresh to see live suffering)</p>
+        <h2 class="section-title">城市氣場實時望診 (City Qi Diagnosis)<br><small>Check for Meridian Blockages (Traffic Jams)</small></h2>
+        <div class="traffic-clock-container">
+            <i class="fas fa-clock"></i> 現在時間 (Time): <span id="trafficClock">--:--:--</span>
+        </div>
+        <p style="margin-bottom: 20px;">醫師提示：塞車即是修行，通暢即是福報。 (Refresh to see live diagnosis)</p>
         
         <div class="transport-dashboard">
             
@@ -957,6 +974,10 @@
             performBusSearch(); 
             
             setInterval(refreshTransportData, 60000);
+            
+            // Start Clock
+            setInterval(updateTrafficClock, 1000);
+            updateTrafficClock();
         });
 
         const canvas = $id('celebrationCanvas');
@@ -1023,6 +1044,13 @@
             { name: "Maggie", msg: "Lamy Happy Birthday! 祝你青春常駐，日日都咁開心！" },
             { name: "Brittney", msg: "Yo Lamy! 生日大快樂！祝你今年氣場全開，運氣爆燈！" }
         ];
+
+        // --- CLOCK FUNCTION ---
+        function updateTrafficClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-HK', { hour12: false });
+            $id('trafficClock').innerText = timeStr;
+        }
 
         // --- NEW: EXCUSE GENERATOR LOGIC (Programmatic Humor) ---
         function generateExcuse() {
@@ -1773,6 +1801,27 @@
                 bgMusic.volume = 0.4; 
             }
         }
+
+        // --- VIDEO & MUSIC LOGIC ---
+        const bannerVideo = $id('bannerVideo');
+
+        // 1. When video starts, pause background Zen music
+        bannerVideo.addEventListener('play', () => {
+            if (!bgMusic.paused) {
+                bgMusic.pause();
+            }
+            // Also ensure birthday song is paused if video is playing
+            if (!birthdaySong.paused) {
+                toggleBirthdaySong(); // This pauses it based on existing logic
+            }
+        });
+
+        // 2. When video ends, play Longevity Tune (Birthday Song)
+        bannerVideo.addEventListener('ended', () => {
+            if (birthdaySong.paused) {
+                toggleBirthdaySong();
+            }
+        });
 
         // --- BIRTHDAY SONG LOGIC ---
         function toggleBirthdaySong() {

@@ -1,0 +1,2033 @@
+<html lang="zh-HK"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Lamy! | Programmatic Zen</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Html2Canvas Library for Exporting Images -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --clay: #d38e6e;
+            --clay-dark: #a66045;
+            --sage: #8da399;
+            --sage-dark: #5f756b;
+            --cream: #f9f5f0;
+            --gold: #d4af37;
+            --text: #4a4a4a;
+            --red-stamp: #d9534f;
+            --wood: #8b5a2b;
+            --incense-ash: #a8a8a8;
+            --mark-red: #ff4d4d;
+            --mark-blue: #3498db;
+            --mark-green: #2ecc71;
+            
+            /* Bus Specific Map */
+            --kmb-color: #E3001B;
+            --ctb-color: #F8BE00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            /* Prevents fixed nav from covering anchors */
+            scroll-padding-top: 140px; 
+        }
+
+        body {
+            font-family: 'Lato', 'Noto Serif TC', serif;
+            background-color: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+            position: relative;
+            padding-top: 80px; /* Space for Nav */
+        }
+
+        /* Background & Canvas */
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.4; animation: floatBg 20s infinite alternate; }
+        .orb-1 { width: 400px; height: 400px; background: var(--clay); top: -100px; left: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--sage); bottom: 10%; right: -50px; animation-delay: -5s; }
+        .orb-3 { width: 200px; height: 200px; background: var(--gold); top: 40%; left: 30%; opacity: 0.2; animation-delay: -10s; }
+        @keyframes floatBg { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.1); } }
+        #celebrationCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+
+        /* Layout */
+        h1, h2, h3, h4 { font-family: 'Noto Serif TC', serif; font-weight: 700; }
+        
+        /* Responsive Nav */
+        nav { 
+            position: fixed; top: 0; width: 100%; 
+            background: rgba(249, 245, 240, 0.98); 
+            padding: 0.8rem 1rem; 
+            z-index: 1000; 
+            display: flex; justify-content: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            backdrop-filter: blur(5px); 
+        }
+        nav ul { 
+            list-style: none; display: flex; gap: 1.5rem; 
+            flex-wrap: wrap; justify-content: center; 
+        }
+        nav a { 
+            text-decoration: none; color: var(--text); 
+            font-weight: bold; font-size: 0.9rem; 
+            transition: color 0.3s; 
+            white-space: nowrap;
+        }
+        nav a:hover { color: var(--clay); }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 768px) {
+            nav ul { gap: 0.8rem; font-size: 0.8rem; }
+            nav a { font-size: 0.75rem; }
+            html { scroll-padding-top: 160px; } /* More buffer for wrapped nav */
+            body { padding-top: 130px; }
+            header { padding-top: 2rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+
+        header { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
+        header h1 { font-size: 3.5rem; color: var(--clay-dark); margin-bottom: 1rem; animation: fadeIn 1.5s ease-out forwards; }
+        header p { font-size: 1.4rem; color: var(--sage-dark); font-weight: 400; animation: fadeIn 1.5s ease-out 0.5s forwards; }
+        
+        /* Banner Video Style */
+        .banner-video {
+            max-width: 100%;
+            width: 750px;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(139, 90, 43, 0.2);
+            border: 5px solid white;
+            animation: fadeIn 1.5s ease-out forwards;
+            background-color: #000; /* Black bg while loading */
+        }
+        
+        /* Birthday Song Button */
+        .btn-music-player {
+            background: var(--gold);
+            color: #1a1a1a;
+            font-family: 'Noto Serif TC', serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 15px 35px;
+            border-radius: 50px;
+            border: 2px solid #b8860b;
+            cursor: pointer;
+            margin-top: 35px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeIn 1.5s ease-out 1s forwards, pulseText 2s infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
+        .btn-music-player:hover { transform: scale(1.05); background: #fff; }
+        .btn-music-player:active { transform: scale(0.95); }
+
+        @keyframes pulseText { from { transform: scale(1); } to { transform: scale(1.05); } }
+        .scroll-down { margin-top: 3rem; font-size: 2rem; color: var(--clay); animation: bounce 2s infinite; cursor: pointer; opacity: 0.7; }
+
+        section { padding: 4rem 1rem; min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(50px); transition: opacity 1s ease-out, transform 1s ease-out; }
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .section-title { font-size: 2.2rem; margin-bottom: 1rem; position: relative; color: var(--text); text-align: center; line-height: 1.2; }
+        .section-title small { display: block; font-size: 1.2rem; color: var(--sage); margin-top: 5px; font-weight: 400; font-family: 'Lato', sans-serif; letter-spacing: 1px; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0; }
+
+        /* --- POTTERY GAME --- */
+        #pottery { background: rgba(244, 239, 233, 0.8); border-radius: 20px; margin: 2rem 1rem; }
+        .game-area { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 100%; margin-top: 2rem; position: relative; min-height: 600px; display: flex; flex-direction: column; justify-content: space-between; }
+
+        .clay-wheel { width: 200px; height: 200px; background: #ddd; border-radius: 50%; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.2); transition: transform 0.1s linear; flex-shrink: 0; }
+
+        #virtualClay { width: 100px; height: 100px; background: var(--clay); border-radius: 50%; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3); transition: all 0.3s ease; position: relative; z-index: 2; }
+
+        /* REAL IMAGE CONTAINER */
+        #masterpiece { display: none; width: 180px; height: 180px; position: relative; z-index: 10; animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        #masterpiece img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2)); }
+
+        .party-hat {
+            position: absolute; top: -30px; left: 50%; transform: translateX(-30%) rotate(15deg);
+            width: 0; height: 0; border-left: 25px solid transparent; border-right: 25px solid transparent; border-bottom: 60px solid #ff6b6b; z-index: 20;
+        }
+        .party-hat::after { content: ''; position: absolute; top: 0; left: -25px; width: 50px; height: 10px; background: #ffd700; border-radius: 50%; transform: translateY(55px); }
+        .party-hat::before { content: ''; position: absolute; top: -10px; left: -5px; width: 10px; height: 10px; background: #ffd700; border-radius: 50%; }
+
+        @keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        #gameControls { transition: opacity 0.5s; }
+        .meter-container { width: 100%; height: 20px; background: #eee; border-radius: 10px; margin-bottom: 10px; position: relative; overflow: hidden; margin-top: 20px; }
+        .meter-label { font-size: 0.8rem; margin-bottom: 5px; display: block; font-weight: bold; color: #666; }
+        #rpmBar { height: 100%; width: 0%; background: linear-gradient(90deg, orange 0%, #4CAF50 30%, #4CAF50 80%, red 100%); transition: width 0.1s linear; }
+        #progressBar { height: 100%; width: 0%; background: var(--clay); transition: width 0.2s linear; }
+        .target-zone { position: absolute; top: 0; left: 30%; width: 50%; height: 100%; background: rgba(0, 255, 0, 0.2); border-left: 2px dashed #4CAF50; border-right: 2px dashed #4CAF50; pointer-events: none; }
+        .btn-game { background: var(--clay-dark); color: white; font-size: 1.2rem; padding: 15px 40px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 0 #8c4e36; transition: transform 0.1s; font-family: 'Noto Serif TC', serif; margin-top: 10px; }
+        .btn-game:active { transform: translateY(5px); box-shadow: none; }
+
+        .btn-replay { background-color: var(--gold); color: #333; font-size: 1.1rem; padding: 12px 30px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 0 #b8860b; transition: transform 0.1s; font-family: 'Noto Serif TC', serif; margin-top: 15px; display: none; /* Hidden by default for logic */ }
+        .btn-replay:active { transform: translateY(4px); box-shadow: none; }
+
+        #winUI { display: none; margin-top: 20px; animation: slideUp 0.5s ease-out; }
+        #winUI h3 { color: var(--red-stamp); font-size: 1.5rem; margin-bottom: 5px; }
+        .blessing-text { font-size: 1.1rem; color: var(--clay-dark); font-weight: bold; margin-bottom: 15px; border-top: 1px dashed #eee; padding-top: 10px; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Zen Section */
+        #buddhism { background-color: var(--sage); color: white; text-align: center; }
+        #buddhism .section-title { color: white; } 
+        #buddhism .section-title small { color: rgba(255,255,255,0.7); }
+        #buddhism .section-title::after { background: white; }
+        .quote-box { font-size: 1.8rem; font-family: 'Noto Serif TC', serif; font-weight: bold; max-width: 800px; min-height: 200px; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .lotus-icon { font-size: 4rem; margin-bottom: 2rem; animation: spinSlow 20s linear infinite; opacity: 0.8; }
+        .btn-zen { background: transparent; border: 2px solid white; color: white; padding: 12px 35px; font-family: 'Noto Serif TC', serif; font-size: 1.1rem; margin-top: 30px; cursor: pointer; transition: all 0.3s; border-radius: 50px; }
+        .btn-zen:hover { background: white; color: var(--sage); }
+
+        /* Office TCM - UPDATED FOR 2x2 */
+        #office-survival { background: transparent; padding-top: 3rem; }
+        
+        .office-grid { 
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Force 2 columns */
+            gap: 25px;
+            width: 100%;
+            max-width: 900px; 
+            margin-top: 2rem; 
+        }
+
+        /* Mobile fallback to 1 column */
+        @media (max-width: 650px) {
+            .office-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .flip-card-container { background-color: transparent; height: 380px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; box-shadow: 0 15px 35px rgba(139, 90, 43, 0.15); border-radius: 20px; }
+        .flip-card-container:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 25px; box-sizing: border-box; }
+        .flip-front { background-color: #fff; border: 2px solid white; color: var(--text); }
+        .office-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .office-title { font-size: 1.3rem; font-weight: 900; color: var(--sage-dark); margin-bottom: 10px; font-family: 'Noto Serif TC', serif; }
+        .office-desc { color: #777; font-size: 0.95rem; margin-bottom: 15px; }
+        .office-hint { font-size: 0.8rem; color: var(--clay); border: 1px dashed var(--clay); padding: 5px 12px; border-radius: 20px; }
+        .flip-back { background-color: var(--sage-dark); color: #f9f5f0; transform: rotateY(180deg); border: 2px solid var(--sage-dark); }
+        .cure-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; width: 80%; font-family: 'Noto Serif TC', serif;}
+        .cure-action { font-size: 1rem; line-height: 1.6; margin-bottom: 15px; }
+        .cure-action strong { color: var(--gold); }
+        .point-location { background: rgba(255,255,255,0.15); padding: 12px; border-radius: 10px; font-size: 0.9rem; }
+        .panic-box { margin-top: 4rem; padding: 2rem; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; max-width: 600px; width: 90%; border: 1px solid var(--sage); }
+        .btn-excuse { background: var(--red-stamp); color: white; font-family: 'Noto Serif TC', serif; font-weight: bold; font-size: 1.1rem; padding: 12px 30px; border-radius: 50px; border: none; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 10px rgba(217, 83, 79, 0.3); transition: transform 0.2s; }
+        .btn-excuse:active { transform: scale(0.95); }
+        #excuseResult { margin-top: 20px; font-size: 1.2rem; color: var(--text); font-weight: bold; min-height: 1.5em; font-family: 'Noto Serif TC', serif; line-height: 1.5; }
+
+        /* --- TRANSPORT DASHBOARD (INTEGRATED) --- */
+        #transport { background: var(--cream); border-top: 1px dashed var(--sage); }
+        .transport-dashboard {
+            display: flex; flex-direction: column; gap: 25px; 
+            width: 100%; max-width: 1000px;
+            background: #fff; padding: 30px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 2px solid white;
+        }
+        
+        /* 1. CAMERAS - 3x2 Layout using 6-column Grid */
+        .tunnel-grid { 
+            display: grid; 
+            /* Define 6 equal columns */
+            grid-template-columns: repeat(6, 1fr); 
+            gap: 20px; 
+            width: 100%;
+        }
+        
+        /* Top Row Items: Span 2 columns each (2+2+2 = 6) */
+        .cam-item-1, .cam-item-2, .cam-item-3 {
+            grid-column: span 2;
+        }
+        
+        /* Bottom Row Items: Span 3 columns each (3+3 = 6) */
+        .cam-item-4, .cam-item-5 {
+            grid-column: span 3;
+        }
+
+        /* Responsive handling for Cameras */
+        @media (max-width: 768px) {
+             .tunnel-grid { grid-template-columns: 1fr; }
+             /* Reset spans on mobile */
+             .cam-item-1, .cam-item-2, .cam-item-3, .cam-item-4, .cam-item-5 {
+                 grid-column: span 1;
+             }
+        }
+
+        .live-cam-frame {
+            position: relative; background: #000; border-radius: 15px;
+            overflow: hidden; aspect-ratio: 4/3; border: 4px solid var(--clay);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+        .live-cam-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s; }
+        .live-cam-frame:hover .live-cam-img { opacity: 1; }
+        .live-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: rgba(255,255,255,0.9); color: var(--text);
+            padding: 4px 10px; border-radius: 20px; font-size: 0.75rem;
+            display: flex; align-items: center; gap: 6px; z-index: 2;
+            font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .live-dot { width: 8px; height: 8px; background-color: var(--red-stamp); border-radius: 50%; animation: pulse 1.5s infinite; }
+
+        /* 2. MTR */
+        .mtr-container { padding: 10px; margin-top: 20px; border-top: 1px dashed var(--sage); }
+        .mtr-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; border-bottom: 1px dashed var(--sage); padding-bottom: 10px; color: var(--sage-dark); }
+        
+        /* MTR Cards - 2x2 Layout */
+        .mtr-cards { 
+            display: grid; 
+            /* Force 2 columns */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+        }
+
+        /* Responsive handling for MTR */
+        @media (max-width: 600px) {
+             .mtr-cards { grid-template-columns: 1fr; }
+        }
+
+        .mtr-card-mini {
+            background: #fafafa; border: 1px solid #eee;
+            border-radius: 12px; padding: 15px; transition: transform 0.2s;
+        }
+        .mtr-card-mini:hover { transform: translateY(-3px); border-color: var(--clay); }
+        .mtr-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .mtr-dest-name { font-size: 1rem; font-weight: 700; color: var(--text); font-family: 'Noto Serif TC'; }
+        .mtr-line-tag { font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; color: white; font-weight: bold; text-transform: uppercase; }
+        .mtr-schedule-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+        .mtr-schedule-item { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        .mtr-time-rem { font-weight: bold; color: var(--sage-dark); }
+        .mtr-time-rem.hurry { color: #d35400; }
+        .mtr-time-rem.now { color: var(--red-stamp); animation: flash 1s infinite; font-weight: 900; }
+        .bg-isl { background-color: #007dc5; }
+        .bg-tkl { background-color: #a35eb5; }
+
+        .neon-btn {
+            background: var(--clay-dark); color: white; border: none; padding: 10px 25px;
+            border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.9rem;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.3s; box-shadow: 0 4px 0 #8c4e36; margin-top: 15px;
+            font-family: 'Noto Serif TC', serif;
+        }
+        .neon-btn:hover { transform: translateY(-2px); background: var(--clay); }
+        .neon-btn:active { transform: translateY(2px); box-shadow: none; }
+        
+        .neon-btn.small { padding: 5px 15px; font-size: 0.8rem; margin: 0; }
+
+
+        /* --- BUS 678 SPECIFIC STYLES --- */
+        .bus-container { padding: 10px; margin-top: 5px; }
+        .bus-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .bus-header-title { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; color: var(--sage-dark); font-weight: 700; font-family: 'Noto Serif TC'; }
+        .bus-input-wrapper { display: flex; gap: 5px; }
+        .bus-input-wrapper input { padding: 5px 10px; border: 1px solid #ddd; border-radius: 20px; font-size: 0.9rem; width: 60px; text-align: center; color: #666; }
+        
+        .bus-dir-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        .btn-bus-dir { flex: 1; padding: 10px; background: #f0f0f0; border: none; border-radius: 10px; cursor: pointer; transition: 0.2s; text-align: left; position: relative; }
+        .btn-bus-dir:hover { background: #e0e0e0; }
+        .btn-bus-dir.active { background: #e3f2fd; color: var(--clay-dark); box-shadow: inset 0 0 0 2px var(--clay-dark); }
+        .btn-bus-dir .main { display: block; font-weight: 700; font-size: 0.95rem; }
+        .btn-bus-dir .sub { display: block; font-size: 0.75rem; opacity: 0.7; }
+        
+        /* Company Toggles (Small) */
+        .bus-co-group { display: flex; gap: 5px; margin-bottom: 10px; display: none; /* hidden by logic usually */ }
+        .btn-co-small { padding: 2px 8px; font-size: 0.7rem; border-radius: 4px; border: none; opacity: 0.5; cursor: pointer; }
+        .btn-co-small.active { opacity: 1; font-weight: bold; }
+        .bg-joint { background: #999; color: white; }
+
+        /* Stop List */
+        .bus-stop-list { list-style: none; max-height: 300px; overflow-y: auto; border: 1px solid #eee; border-radius: 10px; background: #fafafa; }
+        .bus-stop-item { display: flex; align-items: center; gap: 10px; padding: 10px 15px; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; }
+        .bus-stop-item:hover { background: #fff; }
+        /* Highlight for Model Housing Estate */
+        .bus-stop-item.highlight { background: #fff8e1; border-left: 5px solid var(--gold); }
+        
+        .bus-seq { font-size: 0.75rem; color: #bbb; width: 20px; font-weight: bold; }
+        .bus-stop-info { flex: 1; min-width: 0; }
+        .bus-stop-name { font-size: 0.95rem; font-weight: 600; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .bus-stop-sub { font-size: 0.75rem; color: #888; }
+        
+        /* Bus Pills */
+        .bus-etas { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; min-width: 100px; }
+        .eta-pill { padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; }
+        .eta-pill.kmb { background: #fde7ea; color: var(--kmb-color); }
+        .eta-pill.ctb { background: #fff7d1; color: #b8860b; }
+        .eta-pill.muted { background: #eee; color: #aaa; }
+
+        .bus-loading { text-align: center; padding: 20px; font-style: italic; color: #888; font-size: 0.9rem; }
+        
+        /* ETA Modal overlay inside card */
+        .bus-live-panel { background: #f0f7ff; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #cce5ff; display: none; animation: fadeIn 0.3s; }
+        .bus-live-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; color: var(--clay-dark); margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 5px; }
+        .bus-live-row { display: flex; align-items: center; background: white; padding: 6px 10px; border-radius: 6px; margin-bottom: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .co-badge { font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; color: white; margin-right: 8px; font-weight: bold; }
+
+
+        /* --- UPDATED WOODEN FISH / CALENDAR --- */
+        #wooden-fish { background-color: #2a2a2a; color: #eee; text-align: center; }
+        #wooden-fish .section-title { color: #eee; }
+        #wooden-fish .section-title small { color: rgba(255,255,255,0.6); }
+        
+        .calendar-box {
+            background: rgba(255,255,255,0.1); 
+            padding: 2rem; 
+            border-radius: 20px; 
+            margin-bottom: 2rem; 
+            border: 1px solid rgba(255,215,0,0.3); 
+            width: 100%; 
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .gregorian { font-size: 1.4rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
+        
+        .almanac-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            text-align: left;
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .almanac-item { display: flex; flex-direction: column; }
+        .almanac-label { font-size: 0.8rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+        .almanac-value { font-size: 1.1rem; font-family: 'Noto Serif TC', serif; font-weight: bold; color: var(--gold); }
+        
+        .yi-ji-row { grid-column: 1 / -1; display: flex; justify-content: space-between; border-top: 1px dashed #555; padding-top: 10px; margin-top: 5px; }
+        .yi-box { color: #90ee90; }
+        .ji-box { color: #ff6b6b; }
+        .yi-ji-label { font-size: 1rem; font-weight: bold; display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; margin-right: 5px;}
+        .yi-box .yi-ji-label { background: #90ee90; color: #000; }
+        .ji-box .yi-ji-label { background: #ff6b6b; color: #fff; }
+
+        .reminder-bar { background: var(--sage-dark); color: #fff; padding: 10px; border-radius: 50px; margin-bottom: 30px; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px; transition: opacity 0.5s; }
+        .muyu-container { position: relative; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: transform 0.1s; }
+        .muyu-container:active { transform: scale(0.95); }
+        .muyu-icon { font-size: 8rem; color: var(--wood); filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); }
+        .merit-counter { font-size: 1.5rem; margin-top: 20px; font-family: 'Noto Serif TC', serif; }
+        .merit-pop { position: absolute; color: var(--gold); font-weight: bold; font-size: 1.5rem; pointer-events: none; animation: floatUp 1s ease-out forwards; }
+
+        /* --- MARK SIX SECTION --- */
+        #marksix { background-color: #fff8f0; }
+        .machine-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+        }
+        .lottery-globe {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 10px solid rgba(212, 175, 55, 0.5);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.1));
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset -10px -10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .mixing-ball {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            display: none; /* Hidden until active */
+        }
+        .machine-base {
+            width: 200px;
+            height: 60px;
+            background: var(--wood);
+            margin: -40px auto 0;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .drawn-balls-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            min-height: 60px;
+            margin-bottom: 2rem;
+        }
+        .lottery-ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.3), inset 2px 2px 5px rgba(255,255,255,0.5);
+            font-family: 'Arial', sans-serif;
+            opacity: 0;
+            transform: scale(0);
+            border: 2px solid white;
+        }
+        .lottery-ball.visible {
+            animation: popBall 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .ball-red { background: radial-gradient(circle at 30% 30%, #ff6b6b, #cc0000); }
+        .ball-blue { background: radial-gradient(circle at 30% 30%, #5dade2, #2980b9); }
+        .ball-green { background: radial-gradient(circle at 30% 30%, #58d68d, #27ae60); }
+
+        @keyframes popBall { to { opacity: 1; transform: scale(1); } }
+        @keyframes mixBalls {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(100px, -100px); }
+            50% { transform: translate(-80px, 50px); }
+            75% { transform: translate(50px, 80px); }
+            100% { transform: translate(-20px, -120px); }
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        @keyframes flash { from { opacity: 1; } to { opacity: 0.5; } }
+
+
+        /* --- TCM & Wishes --- */
+        #tcm { background: rgba(249, 245, 240, 0.9); }
+        .prescription-card { background: #fff; border: 4px double var(--clay-dark); padding: 3rem; width: 100%; max-width: 600px; text-align: center; position: relative; box-shadow: 0 15px 30px rgba(0,0,0,0.1); min-height: 400px; display: flex; flex-direction: column; justify-content: center; }
+        .camera-frame { width: 100%; height: 300px; background: #000; margin-bottom: 20px; position: relative; overflow: hidden; border: 2px solid var(--clay); border-radius: 10px; display: none; }
+        #videoFeed { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+        .scan-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: rgba(0, 255, 0, 0.8); box-shadow: 0 0 15px rgba(0, 255, 0, 1); animation: scanMove 2s linear infinite; z-index: 5; }
+        .face-box { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 250px; border: 2px dashed rgba(255,255,255,0.5); border-radius: 50%; z-index: 4; }
+        @keyframes scanMove { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+        .stamp { position: absolute; top: -25px; right: -25px; width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--red-stamp); color: var(--red-stamp); display: flex; align-items: center; justify-content: center; font-weight: 900; transform: rotate(20deg); font-size: 1.2rem; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 2; }
+        .tcm-content { opacity: 1; transition: opacity 0.5s; } .tcm-content.fade-out { opacity: 0; }
+        .ingredients { list-style: none; margin: 2rem 0; text-align: left; } .ingredients li { padding: 0.8rem 0; border-bottom: 1px dashed #bbb; display: flex; align-items: center; font-size: 1.1rem; } .ingredients i { margin-right: 15px; font-size: 1.2rem; width: 30px; text-align: center; }
+        .btn-tcm { background-color: var(--clay-dark); color: white; border: none; padding: 12px 30px; font-size: 1.1rem; border-radius: 5px; cursor: pointer; font-family: 'Noto Serif TC', serif; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; } .btn-tcm:hover { background-color: var(--clay); transform: translateY(-2px); }
+        .btn-reset { background-color: #666; margin-top: 10px; }
+        .btn-export { background-color: var(--gold); color: #333; border: 1px solid #b8860b; margin-top: 10px; } .btn-export:hover { background-color: #ffd700; }
+
+        #wishes { background: #1a1a1a; color: var(--cream); padding-bottom: 6rem; } #wishes .section-title { color: var(--cream); } #wishes .section-title small { color: #888; }
+        .message-container { width: 100%; max-width: 900px; margin: 0 auto; }
+        .wish-form { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; margin-bottom: 3rem; display: flex; flex-wrap: wrap; gap: 1rem; border: 1px solid rgba(255,255,255,0.1); }
+        .input-group { flex: 1; min-width: 200px; } .wish-form input, .wish-form textarea { width: 100%; padding: 10px; background: rgba(255,255,255,0.1); border: 1px solid #555; color: white; border-radius: 5px; font-family: 'Lato', sans-serif; } .wish-form textarea { height: 80px; resize: vertical; }
+        .btn-submit { background: var(--gold); color: #1a1a1a; border: none; padding: 10px 25px; font-weight: bold; cursor: pointer; border-radius: 5px; height: fit-content; align-self: flex-end; transition: background 0.3s; } .btn-submit:hover { background: #fff; }
+        .wishes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; width: 100%; } .wish-card { background: #2a2a2a; padding: 2rem; position: relative; transition: transform 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border-top: 4px solid var(--gold); } .wish-card:hover { transform: translateY(-5px); background: #333; }
+        .wish-text { margin-top: 0.5rem; font-size: 1.1rem; line-height: 1.6; min-height: 60px; } .wish-author { margin-top: 1.5rem; text-align: right; font-weight: bold; color: var(--sage); font-size: 1rem; font-family: 'Noto Serif TC', serif; } .wish-date { font-size: 0.7rem; color: #555; text-align: right; margin-top: 5px; }\n        footer { padding: 3rem; text-align: center; background: #000; color: #888; font-size: 0.9rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="celebrationCanvas"></canvas>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    
+    <!-- Background Zen Music (Meditation) -->
+    <audio id="bgMusic" loop="">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=meditation-flute-8763.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="birthdaySong" preload="auto">
+        <source src="BDAY SONG.mp3" type="audio/mpeg">
+    </audio>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#pottery">拉坯 (Clay)</a></li>
+            <li><a href="#buddhism">佛系 (Zen)</a></li>
+            <li><a href="#office-survival">AdTech 中醫</a></li>
+            <li><a href="#transport">運程 (Traffic)</a></li>
+            <li><a href="#wooden-fish">通勝 (Almanac)</a></li>
+            <li><a href="#marksix">六合彩 (Luck)</a></li>
+            <li><a href="#tcm">望診 (Doctor)</a></li>
+            <li><a href="#wishes">留言 (Board)</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <video class="banner-video" controls="" poster="Chiikawa3.png">
+            <source src="Chiikawa Bday Video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h1>Happy Birthday Lamy!</h1>
+        <p>祝你今年：心境好 Zen，作品好勁，身體好掂！<br><span style="font-size: 0.9rem; opacity: 0.8;">(May your mind be Zen, your art be powerful, and your health be great!)</span></p>
+        
+        <button class="btn-music-player" id="playSongBtn" onclick="toggleBirthdaySong()">
+            <i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)
+        </button>
+
+        <div class="scroll-down" onclick="document.getElementById('pottery').scrollIntoView()"><i class="fas fa-chevron-down"></i></div>
+    </header>
+
+    <section id="pottery">
+        <h2 class="section-title">陶藝大挑戰<br><small>Clay Challenge</small></h2>
+        <p style="max-width: 600px; text-align: center; margin-bottom: 1rem;">
+            Lamy, 快速撳 "踩油" Keep 住綠色區域 (Easy Mode)，<br>見證舊泥變身做可愛 Chiikawa 陶器!
+        </p>
+        
+        <div class="game-area">
+            <div class="clay-wheel" id="wheel">
+                <div id="virtualClay"></div>
+                <div id="masterpiece">
+                    <div class="party-hat"></div>
+                    <img src="" alt="Chiikawa" id="resultImage">
+                </div>
+            </div>
+            <div id="gameControls">
+                <div class="meter-container">
+                    <div class="target-zone"></div>
+                    <div id="rpmBar"></div>
+                </div>
+                <span class="meter-label">Wheel Speed (RPM)</span>
+                <div class="meter-container" style="height: 10px; margin-top: 15px;">
+                    <div id="progressBar"></div>
+                </div>
+                <span class="meter-label">Creation Progress</span>
+                <button class="btn-game" id="kickBtn" onclick="kickWheel()">
+                    <i class="fas fa-shoe-prints"></i> 踩油 / Kick Wheel
+                </button>
+            </div>
+            <div id="winUI">
+                <h3 style="color: var(--red-stamp);">🎂 Happy Birthday Lamy! 🎂</h3>
+                <div id="blessingText" class="blessing-text"></div>
+                <button class="btn-replay" id="btnReplay" onclick="resetGame()">
+                    <i class="fas fa-redo"></i> 再玩一次 (Replay)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="buddhism">
+        <i class="fas fa-dharmachakra lotus-icon"></i>
+        <h2 class="section-title">Programmatic Zen<br><small>Optimization Peace</small></h2>
+        <div class="quote-box" id="quoteDisplay">"世人笑我太瘋癲，我笑世人唔識 DSP。"</div>
+        <button class="btn-zen" onclick="newQuote()"><i class="fas fa-random"></i> 抽句金句 (Get Wisdom)</button>
+    </section>
+
+    <section id="office-survival">
+        <h2 class="section-title">Programmatic 養生架構<br><small>Programmatic Wellness Architecture</small></h2>
+        <p>Programmatic 瞬息萬變，用 TCM 秘技平衡你的 Pacing 與身心。</p>
+
+        <div class="office-grid">
+            <!-- Card 1: Rage (Updated for Campaign Changes) -->
+            <div class="flip-card-container">
+                <div class="flip-card-inner">
+                    <div class="flip-front">
+                        <div class="office-icon">🔥</div>
+                        <div class="office-title">改 Campaign 火盛</div>
+                        <div class="office-desc">症狀：見到 Client 臨尾改 Creative，甚至想燒左個 DSP。</div>
+                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cure-title">急救：降火清心</div>
+                        <div class="cure-action">
+                            飲：<strong>菊花決明子</strong> (清肝明目)<br>
+                            按：<strong>太衝穴</strong> (腳背)
+                        </div>
+                        <div class="point-location">
+                            📍 位置：腳趾公同第二隻腳趾中間。<br>
+                            (大力按，幻想踩死個 Bug。)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Eyes (Updated for Dashboard) -->
+            <div class="flip-card-container">
+                <div class="flip-card-inner">
+                    <div class="flip-front">
+                        <div class="office-icon">📊</div>
+                        <div class="office-title">數據喪屍眼</div>
+                        <div class="office-desc">症狀：長期望住 Dashboard，見到數字有重影，Retina 脫落。</div>
+                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cure-title">急救：明目回魂</div>
+                        <div class="cure-action">
+                            飲：<strong>枸杞茶</strong> (滋補肝腎)<br>
+                            按：<strong>睛明穴</strong> (眼頭)
+                        </div>
+                        <div class="point-location">
+                            📍 位置：眼頭凹陷處。<br>
+                            (閉上眼按10秒，當自己去左放假。)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: 3PM Slump (Updated for Optimization) -->
+            <div class="flip-card-container">
+                <div class="flip-card-inner">
+                    <div class="flip-front">
+                        <div class="office-icon">💤</div>
+                        <div class="office-title">優化氣虛 (3PM)</div>
+                        <div class="office-desc">症狀：飯後氣場轉弱，Optimization 冇力，靈魂出竅。</div>
+                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cure-title">急救：補氣提神</div>
+                        <div class="cure-action">
+                            飲：<strong>人參烏龍</strong> (大補元氣)<br>
+                            按：<strong>百會穴</strong> (頭頂)
+                        </div>
+                        <div class="point-location">
+                            📍 位置：頭頂正中央。<br>
+                            (按落去，接收宇宙 Wifi 繼續 Bid。)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Programmatic Anxiety (NEW REQUEST) -->
+            <div class="flip-card-container">
+                <div class="flip-card-inner">
+                    <div class="flip-front">
+                        <div class="office-icon">📉</div>
+                        <div class="office-title">競價焦慮症 (Bid Anxiety)</div>
+                        <div class="office-desc">症狀：每5秒 Refresh 一次 DSP，見到 CPM 貴過金就手震，Pacing 唔夠數就心跳加速。</div>
+                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                    </div>
+                    <div class="flip-back">
+                        <div class="cure-title">急救：止蝕安神</div>
+                        <div class="cure-action">
+                            飲：<strong>酸棗仁湯</strong> (養心安神)<br>
+                            按：<strong>神門穴</strong> (手腕)
+                        </div>
+                        <div class="point-location">
+                            📍 位置：手腕橫紋手指尾端凹陷處。<br>
+                            (按落去，話俾自己聽：Budget 燒唔完係 fate。)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Excuse Generator -->
+        <div class="panic-box">
+            <h3 style="color: var(--clay-dark);">🚨 想早走？Programmatic 藉口產生器</h3>
+            <p style="margin-bottom:10px; color:#666;">Generate an AdTech excuse to leave early.</p>
+            <div id="excuseResult">Click button below...</div>
+            <button class="btn-excuse" onclick="generateExcuse()"><i class="fas fa-magic"></i> 生成藉口 (Generate Excuse)</button>
+        </div>
+    </section>
+
+    <!-- TRANSPORT SECTION -->
+    <section id="transport">
+        <h2 class="section-title">實時路面阻塞率<br><small>Live Traffic Jam Impressions: 5 Major Bottlenecks</small></h2>
+        <p style="margin-bottom: 20px;">Check if the universe wants you to go home. (Refresh to see live suffering)</p>
+        
+        <div class="transport-dashboard">
+            
+            <!-- 1. CAMERAS (Strict 3x2 Grid with spanning) -->
+            <div class="tunnel-grid">
+                <!-- Top Row: 3 Items, span 2 each -->
+                <div class="live-cam-frame cam-item-1">
+                    <div class="live-badge"><div class="live-dot"></div> 東隧 (EHC)</div>
+                    <img class="live-cam-img cam-stream" id="cam-ehc" src="https://tdcctv.data.one.gov.hk/H802F.JPG">
+                </div>
+                <div class="live-cam-frame cam-item-2">
+                    <div class="live-badge"><div class="live-dot"></div> 紅隧 (CHT)</div>
+                    <img class="live-cam-img cam-stream" id="cam-cht" src="https://tdcctv.data.one.gov.hk/H207F.JPG">
+                </div>
+                <div class="live-cam-frame cam-item-3">
+                    <div class="live-badge"><div class="live-dot"></div> 西隧 (WHC)</div>
+                    <img class="live-cam-img cam-stream" id="cam-whc" src="https://tdcctv.data.one.gov.hk/H702F.JPG">
+                </div>
+                
+                <!-- Bottom Row: 2 Items, span 3 each -->
+                <div class="live-cam-frame cam-item-4">
+                    <div class="live-badge"><div class="live-dot"></div> 大老山 (Tate's)</div>
+                    <img class="live-cam-img cam-stream" id="cam-tates" src="https://tdcctv.data.one.gov.hk/K931F.JPG" onerror="this.src='placeholder.jpg'">
+                </div>
+                <div class="live-cam-frame cam-item-5">
+                    <div class="live-badge"><div class="live-dot"></div> 吐露港 (Tolo)</div>
+                    <img class="live-cam-img cam-stream" id="cam-tolo" src="https://tdcctv.data.one.gov.hk/TH110F.JPG" onerror="this.src='placeholder.jpg'">
+                </div>
+            </div>
+
+            <!-- 2. BUS 678 WIDGET -->
+            <div class="bus-container">
+                <div class="bus-header-row">
+                    <div class="bus-header-title">
+                        <i class="fas fa-bus-alt"></i> 678 號歸家轉化漏斗 (Route 678 Home Conversion Funnel)
+                    </div>
+                    <div class="bus-input-wrapper">
+                        <input type="text" id="routeInput" value="678" placeholder="Route">
+                        <button class="neon-btn small" id="searchBusBtn" type="button">查詢 (Check)</button>
+                    </div>
+                </div>
+
+                <!-- Live Panel for Bus ETA Details -->
+                <div id="bus-eta-panel" class="bus-live-panel">
+                    <div class="bus-live-header">
+                        <span id="eta-stop-name">Checking...</span>
+                        <span style="cursor:pointer;" onclick="document.getElementById('bus-eta-panel').style.display='none'">✕</span>
+                    </div>
+                    <div id="eta-content"></div>
+                </div>
+
+                <div class="bus-dir-group">
+                    <button id="btnBusInbound" class="btn-bus-dir" type="button" disabled="">
+                        <span class="main" id="busInboundMain">Inbound</span>
+                        <span class="sub">回頭是岸 (Home)</span>
+                    </button>
+                    <button id="btnBusOutbound" class="btn-bus-dir" type="button" disabled="">
+                        <span class="main" id="busOutboundMain">Outbound</span>
+                        <span class="sub">苦海無邊 (Work)</span>
+                    </button>
+                </div>
+
+                <!-- Hidden Toggles (Auto Logic) -->
+                <div id="companyButtons" class="bus-co-group">
+                    <button id="btnJoint" class="btn-co-small bg-joint" type="button">Joint</button>
+                    <button id="btnKMB" class="btn-co-small" style="background:var(--kmb-color); color:white;" type="button">KMB</button>
+                    <button id="btnCTB" class="btn-co-small" style="background:var(--ctb-color); color:black;" type="button">CTB</button>
+                </div>
+
+                <div id="busStatusArea"></div>
+                <ul class="bus-stop-list" id="busStopList">
+                    <li class="bus-loading">Consulting the Bus Gods...</li>
+                </ul>
+            </div>
+
+            <!-- 3. MTR REAL-TIME (Strict 2x2 Grid) -->
+            <div class="mtr-container">
+                <div class="mtr-header">
+                    <i class="fas fa-subway" style="font-size:1.5rem; color:var(--sage-dark);"></i> 
+                    <div>
+                        <h3 style="margin:0; font-size:1.2rem;">鰂魚涌逃生艙 (Quarry Bay Escape Pods)</h3>
+                        <small style="opacity:0.7;">MTR Real-time Schedule</small>
+                    </div>
+                    <div style="margin-left:auto; font-size:0.8rem; opacity:0.6;" id="mtrLastUpdate">Updated: --:--</div>
+                </div>
+                <div class="mtr-cards" id="mtrCards">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #888;">
+                        <i class="fas fa-circle-notch fa-spin"></i> Reading Stars...
+                    </div>
+                </div>
+            </div>
+
+            <button class="neon-btn" style="margin-top:10px; width:100%; align-self:center;" onclick="refreshTransportData()">
+                <i class="fas fa-sync-alt"></i> 刷新路況 (Refresh Traffic Karma)
+            </button>
+        </div>
+    </section>
+
+    <!-- CALENDAR SECTION -->
+    <section id="wooden-fish">
+        <h2 class="section-title">電子通勝<br><small>Digital Almanac</small></h2>
+        
+        <div class="calendar-box">
+            <div class="gregorian" id="gregorianDate">Loading...</div>
+            
+            <div class="almanac-grid">
+                <div class="almanac-item">
+                    <span class="almanac-label">農曆 (Lunar)</span>
+                    <span class="almanac-value" id="lunarDate">計算中...</span>
+                </div>
+                <div class="almanac-item">
+                    <span class="almanac-label">節氣 (Solar Term)</span>
+                    <span class="almanac-value" id="solarTerm">計算中...</span>
+                </div>
+                <div class="almanac-item">
+                    <span class="almanac-label">氣溫 (Temp)</span>
+                    <span class="almanac-value" id="tempDisplay">24°C (Office: 16°C)</span>
+                </div>
+                <div class="almanac-item">
+                    <span class="almanac-label">今日運勢 (Luck)</span>
+                    <span class="almanac-value">★★★★★</span>
+                </div>
+                
+                <div class="yi-ji-row">
+                    <div class="yi-box">
+                        <span class="yi-ji-label">宜</span>
+                        <span id="yiText">請假, 飲茶</span>
+                    </div>
+                    <div class="ji-box">
+                        <span class="yi-ji-label">忌</span>
+                        <span id="jiText">OT, 開會</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reminder-bar">
+            <i class="fas fa-bell"></i> <span id="reminderText">溫馨提示：記得飲水，保持水潤！</span>
+        </div>
+        <div class="muyu-container" onclick="tapWoodenFish(event)">
+            <i class="fas fa-fish muyu-icon"></i>
+        </div>
+        <div class="merit-counter">累積功德 (Total): <span id="meritCount">0</span></div>
+    </section>
+
+    <!-- MARK SIX SECTION -->
+    <section id="marksix">
+        <h2 class="section-title">玄學六合彩<br><small>Mark Six Fortune</small></h2>
+        <p>Lamy，今日有靈感？由 AI 幫你搖出發達號碼 (Draw 6 numbers)!</p>
+        
+        <div class="machine-container">
+            <div class="lottery-globe" id="lotteryGlobe">
+                <!-- Balls will be injected here by JS -->
+            </div>
+            <div class="machine-base"></div>
+        </div>
+
+        <div class="drawn-balls-container" id="drawnBalls">
+            <!-- Result balls appear here -->
+        </div>
+
+        <button class="btn-music-player" style="margin-top: 0;" onclick="startMarkSix()">
+            <i class="fas fa-ticket-alt"></i> 立即攪珠 (Start Draw)
+        </button>
+    </section>
+
+    <section id="tcm">
+        <h2 class="section-title">AI 智能望診<br><small>Dr. AI Diagnosis</small></h2>
+        <p style="margin-bottom: 2rem;">醫師：Lamy，開鏡頭望下氣色，無限次任睇！</p>
+        
+        <div class="prescription-card" id="tcmResultCard">
+            <div class="stamp" id="stampMark" style="display:none;">大吉<br>Valid</div>
+            <div class="camera-frame" id="cameraSection">
+                <div class="scan-overlay"></div>
+                <div class="face-box"></div>
+                <video id="videoFeed" autoplay="" playsinline=""></video>
+            </div>
+            <div id="tcmContent" class="tcm-content">
+                <h3><i class="fas fa-user-md"></i> 等候診斷中...</h3>
+                <p style="font-style: italic; margin-top: 10px; color: #666;">(Awaiting diagnosis...)</p>
+            </div>
+            <div id="btnContainer">
+                <button class="btn-tcm" id="btnCamera" onclick="startCamera()"><i class="fas fa-camera"></i> 開啟神醫天眼 (Open Camera)</button>
+                <button class="btn-tcm" id="btnScan" onclick="analyzeFace()" style="display: none; background-color: var(--red-stamp);"><i class="fas fa-search"></i> 立即望診 (Analyze)</button>
+                <button class="btn-tcm" id="btnManual" onclick="getPrescription(true)" style="margin-top:10px; font-size:0.9rem; background:transparent; color:#999; border:1px solid #ddd;">鏡頭壞咗? 手動抽籤 (Manual Draw)</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="wishes">
+        <h2 class="section-title">隊友留言板<br><small>Wishing Wall</small></h2>
+        <div class="message-container">
+            <div class="wish-form">
+                <div class="input-group"><input type="text" id="inputName" placeholder="Your Name (你的大名)"></div>
+                <div class="input-group" style="flex: 2;"><textarea id="inputMsg" placeholder="Leave a birthday message for Lamy..."></textarea></div>
+                <button class="btn-submit" onclick="addMessage()">發佈留言 (Post Message) <i class="fas fa-paper-plane"></i></button>
+            </div>
+            <div class="wishes-grid" id="wishesGrid"></div>
+        </div>
+    </section>
+
+    <footer><p>Made with ❤️ &amp; Qi for Lamy. Happy Birthday!</p></footer>
+
+    <script>
+        // Helper
+        const $id = id => document.getElementById(id);
+
+        // --- ANIMATION LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('section').forEach(section => observer.observe(section));
+            
+            // Start Transport Data
+            refreshTransportData();
+            // Start Bus Search for 678 by default
+            performBusSearch(); 
+            
+            setInterval(refreshTransportData, 60000);
+        });
+
+        const canvas = $id('celebrationCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color, type) {
+                this.x = x; this.y = y; this.color = color;
+                this.size = Math.random() * 8 + 4;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * -6 - 3;
+                this.gravity = 0.1; this.life = 100; this.type = type;
+            }
+            update() { this.x += this.speedX; this.y += this.speedY; this.speedY += this.gravity; this.life--; if (this.type === 'confetti') this.rotation = (this.rotation || 0) + 0.1; }
+            draw() { ctx.fillStyle = this.color; ctx.beginPath(); if (this.type === 'firework') { ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2); } else { ctx.fillRect(this.x, this.y, this.size, this.size); } ctx.fill(); }
+        }
+        function handleParticles() { for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); if (particles[i].life <= 0) { particles.splice(i, 1); i--; } } }
+        function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); handleParticles(); requestAnimationFrame(animateParticles); }
+        const colors = ['#ff0055', '#00ddff', '#ffff00', '#55ff00', '#d4af37', '#ffffff'];
+        function explodeConfetti() { for (let i = 0; i < 100; i++) { particles.push(new Particle(window.innerWidth / 2, window.innerHeight / 1.2, colors[Math.floor(Math.random() * colors.length)], 'confetti')); } }
+        function triggerFireworks() { for (let i = 0; i < 5; i++) { let startX = Math.random() * canvas.width; let startY = canvas.height; setTimeout(() => { for (let j = 0; j < 30; j++) { let p = new Particle(startX, startY / 1.5, colors[Math.floor(Math.random() * colors.length)], 'firework'); p.speedY = Math.random() * 10 - 5; p.gravity = 0.05; particles.push(p); } }, i * 200); } }
+        animateParticles();
+        let fwCount = 0; let fwInterval = setInterval(() => { triggerFireworks(); fwCount++; if(fwCount > 5) clearInterval(fwInterval); }, 800); setTimeout(explodeConfetti, 500);
+
+        // --- APP DATA ---
+        const reminders = [
+            "溫馨提示：記得飲水，保持水潤！(Hydrate!)",
+            "溫馨提示：坐耐咗，起身伸個懶腰啦！(Stretch!)",
+            "溫馨提示：深呼吸... 吸氣... 呼氣... (Breathe)",
+            "溫馨提示：對眼攰唔攰？望下遠景養下神。",
+            "溫馨提示：今日有無笑過呀？笑一個啦！:)"
+        ];
+
+        // UPDATED ZEN / PROGRAMMATIC QUOTES
+        const buddhistQuotes = [
+            "世人笑我太瘋癲，我笑世人唔識 DSP。",
+            "人若無求品自高，CPM 若無 Cap 價更高。",
+            "忍一時風平浪靜，退一步... Conversion Rate 跌到零。",
+            "煩惱即菩提，Optimization 即修行，Viewability 即是空。",
+            "本來無 Cookies，何處惹 Privacy？",
+            "心無掛礙，無掛礙故。Campaign 完就放假，不要望 Report。",
+            "色即是空，Impression 即是 Reach，施主請勿執著 Click。",
+            "千金散盡還復來，唯有 Budget 燒完不再來。",
+            "萬法皆空，因果不空；Retargeting 追住你，便是因果。",
+            "若真修道人，不見 Pixel 過。",
+            "放下屠刀 (Deadline)，立地成佛。",
+            "即使輸咗 (Lost Bid)，都要輸得好睇。",
+            "氣大傷身，不如飲杯凍檸茶。",
+            "隨緣自在，不悲不喜。"
+        ];
+
+        const tcmRecipes = [
+            { title: "【氣場全開方】The Power Boost", desc: "診斷結果：面色紅潤但有少少黑眼圈，工作太忙！", ingredients: [{ icon: "fa-bolt", color: "#e6b800", text: "<strong>高麗參:</strong> 補氣第一。" }, { icon: "fa-fire", color: "#d9534f", text: "<strong>紅棗:</strong> 補血氣。" }, { icon: "fa-star", color: "var(--gold)", text: "<strong>鹿茸:</strong> 壯陽氣 (精神上)。" }] },
+            { title: "【美顏養心方】The Beauty Glow", desc: "診斷結果：仙氣迫人，但要注意補水！", ingredients: [{ icon: "fa-spa", color: "#ff99cc", text: "<strong>玫瑰花:</strong> 疏肝解鬱。" }, { icon: "fa-eye", color: "#d9534f", text: "<strong>杞子:</strong> 明目養神。" }, { icon: "fa-gem", color: "#89CFF0", text: "<strong>燕窩:</strong> 滋陰潤燥。" }] },
+            { title: "【佛系清心方】The Zen Chill", desc: "診斷結果：眉頭深鎖，可能被 Bug 煩擾！", ingredients: [{ icon: "fa-leaf", color: "var(--sage-dark)", text: "<strong>甘草:</strong> 調和百味。" }, { icon: "fa-mug-hot", color: "#FFFFE0", text: "<strong>菊花:</strong> 清熱降火。" }, { icon: "fa-wind", color: "#A9A9A9", text: "<strong>深呼吸:</strong> 免費最有效。" }] },
+            { title: "【財源滾滾方】The Wealth Magnet", desc: "診斷結果：印堂發光，顯示就快發達！", ingredients: [{ icon: "fa-coins", color: "var(--gold)", text: "<strong>金蟬花:</strong> 招財進寶。" }, { icon: "fa-lemon", color: "#ffa500", text: "<strong>陳皮:</strong> 越陳越香。" }, { icon: "fa-trophy", color: "#FFD700", text: "<strong>薑:</strong> 做事快狠準。" }] }
+        ];
+        let messageBoardData = [
+            { name: "Alice", msg: "Happy Birthday Lamy! 祝你新一年創意爆棚，整陶藝整到開展覽！" },
+            { name: "Terence", msg: "生日快樂 Lamy！祝你做野順風順水，早收工，身體健康！" },
+            { name: "Maggie", msg: "Lamy Happy Birthday! 祝你青春常駐，日日都咁開心！" },
+            { name: "Brittney", msg: "Yo Lamy! 生日大快樂！祝你今年氣場全開，運氣爆燈！" }
+        ];
+
+        // --- NEW: EXCUSE GENERATOR LOGIC (Programmatic Humor) ---
+        function generateExcuse() {
+            const excuses = [
+                "老細，今日 DSP 數據顯示我『五行缺 Click』，不宜操勞。<br>(DSP shows Five Elements lack Clicks.)",
+                "患上『急性 Pacing 焦慮症』，見到 Budget 燒唔郁就氣促。<br>(Acute Pacing Anxiety.)",
+                "由於長期望住 Dashboard，引發『數據型視網膜脫落』。<br>(Data-induced Retinal Detachment.)",
+                "我個『丹田』同個 Ad Server 的 Latency 同步唔到。<br>(Chakra out of sync with Ad Server Latency.)",
+                "今日通勝話我不宜 Setup，否則會觸犯『Brand Safety』。<br>(Almanac forbids Setup, risk of Brand Safety violation.)",
+                "我條腰話俾我聽，Creative 審批氣場唔對，需要平躺抗衡。<br>(Creative approval bad vibes, must lie down.)",
+                "醫師話我『Algorithm 虛耗過度』，唯一的藥方係 Shut down。<br>(Algorithm Exhaustion, cure is Shut Down.)",
+                "今日忌『人手 Bidding』，宜『佛系優化』。<br>(Taboo: Manual Bid; Lucky: Zen Optimization.)",
+                "Pixel 指示我今日運程在 Server Room，我要去吸靈氣。<br>(Pixel guides me to Server Room for energy.)",
+                "我今日『腦電波』被 Adblock 擋住左，收唔到 Brief。<br>(Brain waves blocked by Adblock.)"
+            ];
+            const randomExcuse = excuses[Math.floor(Math.random() * excuses.length)];
+            const resultDiv = $id("excuseResult");
+            resultDiv.innerHTML = "🗣 " + randomExcuse;
+            resultDiv.style.animation = "none";
+            resultDiv.offsetHeight; /* trigger reflow */
+            resultDiv.style.animation = "fadeIn 0.5s";
+            playWoodenFishSound();
+        }
+
+        // --- HELPER: Convert numbers to Chinese Characters ---
+        function toChineseNum(num) {
+            const digits = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+            if (num <= 10) return digits[num];
+            if (num < 20) return '十' + (num % 10 === 0 ? '' : digits[num % 10]);
+            if (num < 30) return '二十' + (num % 10 === 0 ? '' : digits[num % 10]);
+            if (num === 30) return '三十';
+            return '三十一';
+        }
+
+        // --- ALMANAC LOGIC ---
+        function updateAlmanac() {
+            // 1. Yi / Ji
+            const yiOptions = ["早走", "飲茶", "請假", "屈蛇", "拉坯", "網購", "吹水"];
+            const jiOptions = ["OT", "開會", "改需求", "Deploy", "回Email", "飲齋啡", "通頂"];
+            
+            // Pick 2 random for each
+            const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            $id('yiText').innerText = rand(yiOptions) + ", " + rand(yiOptions);
+            $id('jiText').innerText = rand(jiOptions) + ", " + rand(jiOptions);
+
+            // 2. Solar Term (Approximation for Dec)
+            $id('solarTerm').innerText = "大雪 (Major Snow)";
+
+            // 3. Temperature (Mock)
+            const temp = Math.floor(Math.random() * (26 - 18 + 1) + 18);
+            $id('tempDisplay').innerText = `${temp}°C (Office: 15°C 🥶)`;
+        }
+
+
+        // --- MARK SIX LOGIC ---
+        const lotteryGlobe = $id('lotteryGlobe');
+        const drawnBallsContainer = $id('drawnBalls');
+        let isDrawing = false;
+
+        // HK Mark Six Color Rules
+        const redBalls = [1,2,7,8,12,13,18,19,23,24,29,30,34,35,40,45,46];
+        const blueBalls = [3,4,9,10,14,15,20,25,26,31,36,37,41,42,47,48];
+        const greenBalls = [5,6,11,16,17,21,22,27,28,32,33,38,39,43,44,49];
+
+        function getBallClass(num) {
+            if (redBalls.includes(num)) return 'ball-red';
+            if (blueBalls.includes(num)) return 'ball-blue';
+            if (greenBalls.includes(num)) return 'ball-green';
+            return 'ball-red'; // fallback
+        }
+
+        function startMarkSix() {
+            if (isDrawing) return;
+            isDrawing = true;
+            drawnBallsContainer.innerHTML = ''; // Clear previous
+            
+            // Create mixing animation
+            lotteryGlobe.innerHTML = '';
+            for(let i=0; i<15; i++) {
+                const ball = document.createElement('div');
+                ball.className = 'mixing-ball';
+                ball.style.left = (Math.random() * 80 + 10) + '%';
+                ball.style.top = (Math.random() * 80 + 10) + '%';
+                ball.style.display = 'block';
+                // Randomized animation parameters
+                const duration = Math.random() * 0.5 + 0.5;
+                ball.style.animation = `mixBalls ${duration}s infinite linear alternate`;
+                lotteryGlobe.appendChild(ball);
+            }
+            
+            playWoodenFishSound(); // Sound effect start
+
+            // Draw logic
+            let numbers = [];
+            while(numbers.length < 6) {
+                let n = Math.floor(Math.random() * 49) + 1;
+                if(numbers.indexOf(n) === -1) numbers.push(n);
+            }
+
+            // Reveal one by one
+            let drawIndex = 0;
+            const drawInterval = setInterval(() => {
+                if(drawIndex >= 6) {
+                    clearInterval(drawInterval);
+                    lotteryGlobe.innerHTML = ''; // Stop mixing
+                    isDrawing = false;
+                    triggerFireworks();
+                    return;
+                }
+
+                const num = numbers[drawIndex];
+                const ballEl = document.createElement('div');
+                ballEl.className = `lottery-ball ${getBallClass(num)}`;
+                ballEl.innerText = num;
+                drawnBallsContainer.appendChild(ballEl);
+                
+                // Trigger reflow for animation
+                void ballEl.offsetWidth;
+                ballEl.classList.add('visible');
+                playWoodenFishSound(); // Beep on draw
+
+                drawIndex++;
+            }, 800);
+        }
+        
+        
+        /* =========================================
+           TRANSPORT LOGIC (INTEGRATED)
+           ========================================= */
+        const MTR_STATION_CODE = "QUB";
+        const MTR_DIRECTIONS = [
+            { id: "kt", name: "To Kennedy Town", apiLine: "ISL", apiDir: "DOWN", lineClass: "bg-isl" },
+            { id: "cw", name: "To Chai Wan", apiLine: "ISL", apiDir: "UP", lineClass: "bg-isl" },
+            { id: "po", name: "To Po Lam / LOHAS", apiLine: "TKL", apiDir: "UP", lineClass: "bg-tkl" },
+            { id: "np", name: "To North Point", apiLine: "TKL", apiDir: "DOWN", lineClass: "bg-tkl" }
+        ];
+
+        async function refreshTransportData() {
+            updateMTR();
+            // Refresh Cams
+            const cams = document.querySelectorAll('.cam-stream');
+            cams.forEach(img => { 
+                const baseUrl = img.src.split('?')[0];
+                img.src = `${baseUrl}?t=${Date.now()}`; 
+            });
+        }
+
+        async function updateMTR() {
+            const container = $id('mtrCards');
+            const timeDisplay = $id('mtrLastUpdate');
+            
+            try {
+                const [resISL, resTKL] = await Promise.all([
+                    fetch(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=ISL&sta=${MTR_STATION_CODE}`),
+                    fetch(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TKL&sta=${MTR_STATION_CODE}`)
+                ]);
+                const dataISL = await resISL.json();
+                const dataTKL = await resTKL.json();
+
+                const combinedData = {
+                    ISL: dataISL.data[`ISL-${MTR_STATION_CODE}`],
+                    TKL: dataTKL.data[`TKL-${MTR_STATION_CODE}`]
+                };
+
+                container.innerHTML = '';
+
+                MTR_DIRECTIONS.forEach(dir => {
+                    let trains = [];
+                    if (combinedData[dir.apiLine] && combinedData[dir.apiLine][dir.apiDir]) {
+                        trains = combinedData[dir.apiLine][dir.apiDir];
+                    }
+
+                    let listHTML = "";
+                    if (trains.length > 0) {
+                        trains.slice(0, 3).forEach(train => {
+                            const trainDate = new Date(train.time.replace(/-/g, "/"));
+                            const diffMins = Math.ceil((trainDate - new Date()) / 60000);
+                            let tClass = diffMins <= 0 ? "mtr-time-rem now" : (diffMins <= 2 ? "mtr-time-rem hurry" : "mtr-time-rem");
+                            let tText = diffMins <= 0 ? "Run!" : `${diffMins} min`;
+
+                            listHTML += `<li class="mtr-schedule-item"><span>${trainDate.getHours().toString().padStart(2,'0')}:${trainDate.getMinutes().toString().padStart(2,'0')}</span><span class="${tClass}">${tText}</span></li>`;
+                        });
+                    } else {
+                        listHTML = `<li class="mtr-schedule-item" style="opacity:0.5;">No data</li>`;
+                    }
+
+                    container.innerHTML += `
+                        <div class="mtr-card-mini">
+                            <div class="mtr-card-top"><div class="mtr-dest-name">${dir.name}</div><div class="mtr-line-tag ${dir.lineClass}">${dir.apiLine}</div></div>
+                            <ul class="mtr-schedule-list">${listHTML}</ul>
+                        </div>`;
+                });
+                
+                const d = new Date();
+                timeDisplay.innerHTML = `Updated: ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+
+            } catch (err) {
+                console.error("MTR Error", err);
+            }
+        }
+
+        /* =========================================
+           BUS ROUTE LOGIC (INTEGRATED)
+           ========================================= */
+        const KMB_BASE = "https://data.etabus.gov.hk/v1/transport/kmb";
+        const CTB_BASE = "https://rt.data.gov.hk/v2/transport/citybus";
+
+        let busCurrentRoute = "";
+        let busCurrentDirection = "inbound";
+        let busKmbDirCode = "I";
+        let busCtbDirCode = "I";
+        
+        let busJointOperation = false;
+        let busFilterSet = new Set();
+        let busIo = null;
+        let busLoadedEtas = new Set();
+        let busCurrentKmbStops = [];
+        let busCurrentCtbStops = [];
+        let busMergedPairs = [];
+
+        const routeHeadsByDir = {
+            inbound: { KMB: {dest_en:""}, CTB: {dest_en:""} },
+            outbound: { KMB: {dest_en:""}, CTB: {dest_en:""} }
+        };
+
+        const stopCache = { KMB: new Map(), CTB: new Map() };
+
+        function normalizeForCompare(s) {
+            return (s || "").toUpperCase().replace(/\([^)]*\)/g, "").replace(/[，,、/·\.\-–—]/g, "").replace(/\s+/g, "");
+        }
+
+        async function fetchJson(url) {
+            const res = await fetch(url, { cache: "no-store" });
+            if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+            return res.json();
+        }
+
+        async function fetchRouteStops(company, route, dir) {
+            if (company === 'KMB') {
+                const j = await fetchJson(`${KMB_BASE}/route-stop/${route}/${dir}/1`).catch(() => ({ data: [] }));
+                const list = (j.data || []).map(x => ({ stop: x.stop, seq: Number(x.seq || x.stop_seq || 0) }));
+                const detectedDir = (j.data && j.data[0] && j.data[0].bound) ? j.data[0].bound : (dir === 'inbound' ? 'I' : 'O');
+                return { list, dirCode: detectedDir };
+            } else {
+                const j = await fetchJson(`${CTB_BASE}/route-stop/CTB/${route}/${dir}`).catch(() => ({ data: [] }));
+                const list = (j.data || []).map(x => ({ stop: x.stop, seq: Number(x.seq || x.stop_seq || 0) }));
+                const detectedDir = (j.data && j.data[0] && j.data[0].dir) ? j.data[0].dir : (dir === 'inbound' ? 'I' : 'O');
+                return { list, dirCode: detectedDir };
+            }
+        }
+
+        async function getStopDetail(company, stopId) {
+            if (!stopId) return null;
+            const cache = stopCache[company];
+            if (cache.has(stopId)) return cache.get(stopId);
+            const url = company === 'KMB' ? `${KMB_BASE}/stop/${stopId}` : `${CTB_BASE}/stop/${stopId}`;
+            const j = await fetchJson(url).catch(() => ({ data: {} }));
+            const d = j.data || {};
+            const det = {
+                id: stopId,
+                name_en: d.name_en || "",
+                name_tc: d.name_tc || "",
+                lat: Number(d.lat ?? d.latitude) || 0,
+                long: Number(d.long ?? d.longitude) || 0
+            };
+            cache.set(stopId, det);
+            return det;
+        }
+
+        async function hydrateStops(company, stops) {
+            const list = stops || [];
+            const results = new Array(list.length);
+            let i = 0;
+            const workers = Array.from({ length: Math.min(8, list.length || 1) }, async () => {
+                while (i < list.length) {
+                    const idx = i++;
+                    const s = list[idx];
+                    const det = await getStopDetail(company, s.stop);
+                    results[idx] = { ...det, seq: s.seq || idx + 1 };
+                }
+            });
+            await Promise.all(workers);
+            return results.filter(x => x && x.lat && x.long);
+        }
+
+        function haversineMeters(a, b) {
+            if (!a || !b || !a.lat || !a.long || !b.lat || !b.long) return Infinity;
+            const R = 6371000;
+            const toRad = deg => deg * Math.PI / 180;
+            const dLat = toRad(b.lat - a.lat);
+            const dLon = toRad(b.long - a.long);
+            const lat1 = toRad(a.lat);
+            const lat2 = toRad(b.lat);
+            const h = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLon/2)**2;
+            return 2 * R * Math.asin(Math.sqrt(h));
+        }
+
+        async function checkAlignment(kStops, cStops, company) {
+            if (!kStops.length || !cStops.length) return Infinity;
+            const kFirst = await getStopDetail('KMB', kStops[0].stop);
+            const kLast = await getStopDetail('KMB', kStops[kStops.length-1].stop);
+            const cFirst = await getStopDetail(company, cStops[0].stop);
+            const cLast = await getStopDetail(company, cStops[cStops.length-1].stop);
+            return haversineMeters(kFirst, cFirst) + haversineMeters(kLast, cLast); 
+        }
+
+        function mergeStopsNearest(baseCompany, baseList, otherCompany, otherList, threshold = 60) {
+            const used = new Set();
+            const res = [];
+            for (const b of baseList) {
+                let bestIdx = -1;
+                let bestDist = threshold;
+                for (let i = 0; i < otherList.length; i++) {
+                    if (used.has(i)) continue;
+                    const d = haversineMeters(b, otherList[i]);
+                    if (d < bestDist) { bestDist = d; bestIdx = i; }
+                }
+                const pair = { kmb: null, ctb: null };
+                if (baseCompany === 'KMB') pair.kmb = b.id; else pair.ctb = b.id;
+                if (bestIdx >= 0) {
+                    used.add(bestIdx);
+                    if (otherCompany === 'KMB') pair.kmb = otherList[bestIdx].id; else pair.ctb = otherList[bestIdx].id;
+                }
+                res.push(pair);
+            }
+            for (let i = 0; i < otherList.length; i++) {
+                if (!used.has(i)) {
+                    const pair = { kmb: null, ctb: null };
+                    if (otherCompany === 'KMB') pair.kmb = otherList[i].id; else pair.ctb = otherList[i].id;
+                    res.push(pair);
+                }
+            }
+            return res.map((p, idx) => ({ ...p, seq: idx + 1 }));
+        }
+
+        async function fetchKMBHead(route, direction) {
+            try {
+                const j = await fetchJson(`${KMB_BASE}/route/${route}/${direction}/1`);
+                const d = j.data || {};
+                return {dest_en:d.dest_en||""};
+            } catch(_) {}
+            return {dest_en:""};
+        }
+
+        async function fetchCTBHeads(route) {
+            try {
+                const j = await fetchJson(`${CTB_BASE}/route/CTB/${route}`);
+                const arr = j.data || [];
+                const inbound = arr.find(x => (x.bound || x.dir) === "I") || {};
+                const outbound = arr.find(x => (x.bound || x.dir) === "O") || {};
+                return {
+                    inbound: {dest_en: inbound.dest_en || ""},
+                    outbound: {dest_en: outbound.dest_en || ""}
+                };
+            } catch (_) {
+                return {inbound:{dest_en:""}, outbound:{dest_en:""}};
+            }
+        }
+
+        function updateDirectionLabels() {
+            const hInK = routeHeadsByDir.inbound.KMB, hInC = routeHeadsByDir.inbound.CTB;
+            const hOutK = routeHeadsByDir.outbound.KMB, hOutC = routeHeadsByDir.outbound.CTB;
+            const inDest = (hInK.dest_en || hInC.dest_en);
+            const outDest = (hOutK.dest_en || hOutC.dest_en);
+            $id('busInboundMain').textContent = inDest ? `To ${inDest}` : 'Inbound';
+            $id('busOutboundMain').textContent = outDest ? `To ${outDest}` : 'Outbound';
+        }
+
+        function updateCompanyButtonsUI() {
+            const group = $id('companyButtons');
+            if (!busJointOperation) { group.style.display = 'none'; return; }
+            group.style.display = 'flex';
+            const isBoth = busFilterSet.has('KMB') && busFilterSet.has('CTB');
+            $id('btnJoint').classList.toggle('active', isBoth);
+            $id('btnKMB').classList.toggle('active', busFilterSet.has('KMB') && !isBoth);
+            $id('btnCTB').classList.toggle('active', busFilterSet.has('CTB') && !isBoth);
+        }
+
+        async function performBusSearch() {
+            busCurrentRoute = $id('routeInput').value.trim().toUpperCase();
+            if (!busCurrentRoute) return;
+
+            // UPDATE WIDGET TITLE
+            const busTitleEl = document.querySelector('.bus-header-title');
+            if(busCurrentRoute === '678') {
+                busTitleEl.innerHTML = '<i class="fas fa-bus-alt"></i> 678 號歸家轉化漏斗 (Route 678 Home Conversion Funnel)';
+            } else {
+                 busTitleEl.innerHTML = `<i class="fas fa-bus-alt"></i> Route ${busCurrentRoute} Transport Protocol`;
+            }
+
+            $id('busStopList').innerHTML = '<li class="bus-loading">Reading Celestial Maps...</li>';
+            $id('btnBusInbound').disabled = true; 
+            $id('btnBusOutbound').disabled = true;
+            $id('btnBusInbound').classList.remove('active');
+            $id('btnBusOutbound').classList.remove('active');
+
+            try {
+                const [kmbIn, kmbOut, ctbHeads] = await Promise.all([
+                    fetchKMBHead(busCurrentRoute, 'inbound'),
+                    fetchKMBHead(busCurrentRoute, 'outbound'),
+                    fetchCTBHeads(busCurrentRoute)
+                ]);
+                routeHeadsByDir.inbound.KMB = kmbIn;
+                routeHeadsByDir.outbound.KMB = kmbOut;
+                routeHeadsByDir.inbound.CTB = ctbHeads.inbound;
+                routeHeadsByDir.outbound.CTB = ctbHeads.outbound;
+
+                busFilterSet = new Set();
+                const hasK = (kmbIn.dest_en || kmbOut.dest_en);
+                const hasC = (ctbHeads.inbound.dest_en || ctbHeads.outbound.dest_en);
+                
+                if (hasK) busFilterSet.add('KMB');
+                if (hasC) busFilterSet.add('CTB');
+                if (busFilterSet.size === 0) { busFilterSet.add('KMB'); busFilterSet.add('CTB'); }
+
+                updateDirectionLabels();
+                $id('btnBusInbound').disabled = false;
+                $id('btnBusOutbound').disabled = false;
+                
+                // Auto-select Inbound (Standard default)
+                $id('btnBusInbound').classList.add('active');
+                await loadRoute('inbound');
+                
+            } catch (e) {
+                $id('busStopList').innerHTML = `<li style="color:red; padding:20px;">Bus Karma Blocked: ${e.message}</li>`;
+            }
+        }
+
+        async function loadRoute(direction) {
+            busCurrentDirection = direction;
+            $id('btnBusInbound').classList.toggle('active', direction === 'inbound');
+            $id('btnBusOutbound').classList.toggle('active', direction === 'outbound');
+            $id('busStopList').innerHTML = '<li class="bus-loading">Summoning Stops...</li>';
+            
+            busLoadedEtas = new Set();
+            if (busIo) { try { busIo.disconnect(); } catch(_){} busIo = null; }
+
+            try {
+                const kData = await fetchRouteStops('KMB', busCurrentRoute, busCurrentDirection);
+                const [cInRaw, cOutRaw] = await Promise.all([
+                    fetchRouteStops('CTB', busCurrentRoute, 'inbound'),
+                    fetchRouteStops('CTB', busCurrentRoute, 'outbound')
+                ]);
+
+                let cFinalList = [];
+                if (kData.list.length > 0) {
+                    const scoreIn = await checkAlignment(kData.list, cInRaw.list, 'CTB');
+                    const scoreOut = await checkAlignment(kData.list, cOutRaw.list, 'CTB');
+                    if (scoreOut < scoreIn && scoreOut < 5000) {
+                       cFinalList = cOutRaw.list;
+                       busCtbDirCode = cOutRaw.dirCode;
+                    } else {
+                       cFinalList = cInRaw.list;
+                       busCtbDirCode = cInRaw.dirCode;
+                    }
+                    busKmbDirCode = kData.dirCode;
+                } else {
+                    cFinalList = (busCurrentDirection === 'inbound' ? cInRaw.list : cOutRaw.list);
+                    busCtbDirCode = (busCurrentDirection === 'inbound' ? cInRaw.dirCode : cOutRaw.dirCode);
+                    busKmbDirCode = (busCurrentDirection === 'inbound' ? 'I' : 'O');
+                }
+
+                const [kHydrated, cHydrated] = await Promise.all([
+                    hydrateStops('KMB', kData.list),
+                    hydrateStops('CTB', cFinalList)
+                ]);
+                
+                busCurrentKmbStops = kHydrated;
+                busCurrentCtbStops = cHydrated;
+                busJointOperation = (busCurrentKmbStops.length > 0 && busCurrentCtbStops.length > 0);
+                
+                if (busJointOperation) {
+                    if (!busFilterSet.has('KMB') || !busFilterSet.has('CTB')) busFilterSet = new Set(['KMB','CTB']);
+                } else {
+                    busFilterSet = new Set();
+                    if (busCurrentKmbStops.length > 0) busFilterSet.add('KMB');
+                    else if (busCurrentCtbStops.length > 0) busFilterSet.add('CTB');
+                }
+                
+                updateCompanyButtonsUI();
+
+                if (busJointOperation) {
+                    const baseIsKMB = busCurrentKmbStops.length >= busCurrentCtbStops.length;
+                    busMergedPairs = mergeStopsNearest(
+                      baseIsKMB ? 'KMB' : 'CTB', baseIsKMB ? busCurrentKmbStops : busCurrentCtbStops, 
+                      baseIsKMB ? 'CTB' : 'KMB', baseIsKMB ? busCurrentCtbStops : busCurrentKmbStops, 
+                      80
+                    );
+                } else {
+                    busMergedPairs = (busCurrentKmbStops.length > 0 ? busCurrentKmbStops : busCurrentCtbStops).map((s, i) => ({
+                      kmb: busCurrentKmbStops.length > 0 ? s.id : null,
+                      ctb: busCurrentCtbStops.length > 0 ? s.id : null,
+                      seq: i + 1
+                    }));
+                }
+
+                renderBusStops(busMergedPairs);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function renderBusStops(pairs) {
+            const list = $id('busStopList');
+            list.innerHTML = '';
+            busLoadedEtas = new Set();
+            if (busIo) { try { busIo.disconnect(); } catch(_){} busIo = null; }
+
+            let count = 0;
+            let targetScrollEl = null;
+
+            for (let i = 0; i < pairs.length; i++) {
+                const pair = pairs[i];
+                const kmbId = pair.kmb;
+                const ctbId = pair.ctb;
+                let show = false;
+                if (busFilterSet.has('KMB') && kmbId) show = true;
+                if (busFilterSet.has('CTB') && ctbId) show = true;
+                if (!show) continue;
+
+                count++;
+                const li = document.createElement('li');
+                li.className = 'bus-stop-item';
+                li.dataset.seq = String(i+1);
+                li.dataset.kmb = kmbId || "";
+                li.dataset.ctb = ctbId || "";
+                
+                li.innerHTML = `
+                    <div class="bus-seq">${count}</div>
+                    <div class="bus-stop-info">
+                      <div class="bus-stop-name" id="bname-${i}">Loading...</div>
+                      <div class="bus-stop-sub" id="bsub-${i}"></div>
+                    </div>
+                    <div class="bus-etas" id="betas-${i}"><span class="eta-pill muted">...</span></div>
+                `;
+                li.onclick = () => getBusEta(busCurrentRoute, kmbId, ctbId, i);
+                list.appendChild(li);
+                
+                // Fetch name immediately and check for default Highlight
+                fetchStopNamesBilingual(i, kmbId, ctbId).then(names => {
+                    const fullName = (names || "").toUpperCase();
+                    // HIGHLIGHT LOGIC FOR MODEL HOUSING ESTATE
+                    if(fullName.includes("MODEL HOUSING") || fullName.includes("模範邨")) {
+                         li.classList.add('highlight');
+                         // Scroll to this item inside the list
+                         list.scrollTop = li.offsetTop - list.offsetTop - 50; 
+                    }
+                });
+            }
+            if(count === 0) list.innerHTML = '<li class="bus-loading">No stops in this dimension.</li>';
+            setupBusObserver();
+        }
+
+        function setupBusObserver() {
+            const items = document.querySelectorAll('.bus-stop-item');
+            if ('IntersectionObserver' in window) {
+                busIo = new IntersectionObserver(entries => {
+                    entries.forEach(ent => {
+                        if (ent.isIntersecting) {
+                            const li = ent.target;
+                            const kmbId = li.dataset.kmb || null;
+                            const ctbId = li.dataset.ctb || null;
+                            const uniqueKey = `${busCurrentRoute}-${busCurrentDirection}-${kmbId}-${ctbId}`;
+                            if (!busLoadedEtas.has(uniqueKey)) {
+                                busLoadedEtas.add(uniqueKey);
+                                const domId = li.querySelector('.bus-etas').id;
+                                const realIdx = domId.split('-')[1];
+                                loadStopEtas(realIdx, kmbId, ctbId);
+                            }
+                            busIo.unobserve(li);
+                        }
+                    });
+                }, { root: $id('busStopList'), rootMargin: '100px 0px', threshold: 0.01 });
+                items.forEach(li => busIo.observe(li));
+            } else {
+                items.forEach(li => {
+                    const domId = li.querySelector('.bus-etas').id;
+                    const realIdx = domId.split('-')[1];
+                    loadStopEtas(realIdx, li.dataset.kmb, li.dataset.ctb);
+                });
+            }
+        }
+
+        async function fetchStopNamesBilingual(idx, kmbId, ctbId) {
+            const nameEl = $id(`bname-${idx}`);
+            const subEl = $id(`bsub-${idx}`);
+            try {
+                let en = "", tc = "";
+                if (kmbId && ctbId) {
+                    const [k, c] = await Promise.all([ getStopDetail('KMB', kmbId), getStopDetail('CTB', ctbId) ]);
+                    en = k.name_en || c.name_en || "";
+                    tc = k.name_tc || c.name_tc || "";
+                    if (c.name_en && normalizeForCompare(k.name_en) !== normalizeForCompare(c.name_en)) {
+                        subEl.textContent = `CTB: ${c.name_en}`;
+                    }
+                } else if (kmbId) {
+                    const k = await getStopDetail('KMB', kmbId);
+                    en = k.name_en || ""; tc = k.name_tc || "";
+                } else if (ctbId) {
+                    const c = await getStopDetail('CTB', ctbId);
+                    en = c.name_en || ""; tc = c.name_tc || "";
+                }
+                const fullStr = `${en} ${tc}`;
+                nameEl.textContent = fullStr;
+                return fullStr;
+            } catch (_) { nameEl.textContent = "Unknown Stop"; return ""; }
+        }
+
+        function fmtMins(dateStr) {
+            const d = new Date(dateStr);
+            if (isNaN(d)) return null;
+            const diff = Math.floor((d - new Date()) / 60000);
+            return diff <= 0 ? 'NOW' : `${diff}m`;
+        }
+
+        async function loadStopEtas(idx, kmbId, ctbId) {
+            const el = $id(`betas-${idx}`);
+            if (!el) return;
+            const needK = !!kmbId && (busJointOperation || busFilterSet.has('KMB'));
+            const needC = !!ctbId && (busJointOperation || busFilterSet.has('CTB'));
+
+            const reqs = [];
+            reqs.push(needK ? fetchJson(`${KMB_BASE}/eta/${kmbId}/${busCurrentRoute}/1`).catch(()=>({data:[]})) : Promise.resolve({data:[]}));
+            reqs.push(needC ? fetchJson(`${CTB_BASE}/eta/CTB/${ctbId}/${busCurrentRoute}`).catch(()=>({data:[]})) : Promise.resolve({data:[]}));
+
+            try {
+                const [kmbRes, ctbRes] = await Promise.all(reqs);
+                const pills = [];
+                if (needK) (kmbRes?.data || []).filter(x => x.dir === busKmbDirCode && x.eta).slice(0, 2).forEach(x => { const m = fmtMins(x.eta); if (m) pills.push({ co:'kmb', text:m }); });
+                if (needC) (ctbRes?.data || []).filter(x => x.dir === busCtbDirCode && x.eta).slice(0, 2).forEach(x => { const m = fmtMins(x.eta); if (m) pills.push({ co:'ctb', text:m }); });
+
+                el.innerHTML = '';
+                if (pills.length === 0) el.innerHTML = `<span class="eta-pill muted">-</span>`;
+                else pills.sort((a,b) => (a.co === b.co ? 0 : a.co === 'kmb' ? -1 : 1)).forEach(p => {
+                    const span = document.createElement('span');
+                    span.className = `eta-pill ${p.co}`;
+                    span.textContent = p.text;
+                    el.appendChild(span);
+                });
+            } catch (_) { el.innerHTML = `<span class="eta-pill muted">!</span>`; }
+        }
+
+        async function getBusEta(route, kmbId, ctbId, idx) {
+            const panel = $id('bus-eta-panel');
+            const content = $id('eta-content');
+            const headerName = $id('eta-stop-name');
+            panel.style.display = 'block';
+            headerName.innerText = $id(`bname-${idx}`).innerText;
+            content.innerHTML = '<div style="color:#666; text-align:center; padding:10px;">Consulting Oracles...</div>';
+
+            const needK = !!kmbId && (busJointOperation || busFilterSet.has('KMB'));
+            const needC = !!ctbId && (busJointOperation || busFilterSet.has('CTB'));
+            
+            const reqs = [];
+            reqs.push(needK ? fetchJson(`${KMB_BASE}/eta/${kmbId}/${route}/1`).catch(()=>({data:[]})) : Promise.resolve({data:[]}));
+            reqs.push(needC ? fetchJson(`${CTB_BASE}/eta/CTB/${ctbId}/${route}`).catch(()=>({data:[]})) : Promise.resolve({data:[]}));
+
+            const [kmbRes, ctbRes] = await Promise.all(reqs);
+            const buses = [];
+            
+            (kmbRes?.data || []).filter(b => b.dir === busKmbDirCode && b.eta).forEach(b => {
+                buses.push({ co:'KMB', dest: b.dest_en, time: b.eta, rmk: b.rmk_en || "" });
+            });
+            (ctbRes?.data || []).filter(b => b.dir === busCtbDirCode && b.eta).forEach(b => {
+                buses.push({ co:'CTB', dest: b.dest_en, time: b.eta, rmk: b.rmk_en || "" });
+            });
+
+            content.innerHTML = '';
+            if (buses.length === 0) { content.innerHTML = '<div style="text-align:center; padding:10px; color:#888;">The Universe is silent (No bus).</div>'; return; }
+
+            buses.sort((a, b) => new Date(a.time) - new Date(b.time));
+            buses.forEach(bus => {
+                const d = new Date(bus.time);
+                const tStr = d.toLocaleTimeString('en-HK', { hour: '2-digit', minute: '2-digit', hour12: false });
+                const diff = Math.floor((d - new Date()) / 60000);
+                const mStr = diff <= 0 ? 'NOW' : diff + ' min';
+                const bgClass = bus.co === 'KMB' ? 'var(--kmb-color)' : 'var(--ctb-color)';
+                const txtClass = bus.co === 'KMB' ? 'white' : 'black';
+                content.innerHTML += `
+                    <div class="bus-live-row">
+                        <div class="co-badge" style="background:${bgClass}; color:${txtClass}">${bus.co}</div>
+                        <div style="flex:1">
+                            <div style="font-size:0.9rem; font-weight:600;">To ${bus.dest}</div>
+                            <div style="font-size:0.75rem; color:#888;">${bus.rmk}</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div style="font-weight:700; color:var(--clay-dark);">${tStr}</div>
+                            <div style="font-size:0.75rem; color:#888;">${mStr}</div>
+                        </div>
+                    </div>`;
+            });
+        }
+        
+        // Listeners for Bus
+        $id('searchBusBtn').addEventListener('click', performBusSearch);
+        $id('routeInput').addEventListener('keypress', e => { if (e.key === 'Enter') performBusSearch(); });
+        $id('btnBusInbound').addEventListener('click', () => { if(!$id('btnBusInbound').disabled) loadRoute('inbound'); });
+        $id('btnBusOutbound').addEventListener('click', () => { if(!$id('btnBusOutbound').disabled) loadRoute('outbound'); });
+        $id('btnKMB').addEventListener('click', () => { if(busJointOperation){ busFilterSet.clear(); busFilterSet.add('KMB'); updateCompanyButtonsUI(); renderBusStops(busMergedPairs); }});
+        $id('btnCTB').addEventListener('click', () => { if(busJointOperation){ busFilterSet.clear(); busFilterSet.add('CTB'); updateCompanyButtonsUI(); renderBusStops(busMergedPairs); }});
+        $id('btnJoint').addEventListener('click', () => { if(busJointOperation){ busFilterSet=new Set(['KMB','CTB']); updateCompanyButtonsUI(); renderBusStops(busMergedPairs); }});
+
+
+        // --- INIT ---
+        window.onload = function() { 
+            const today = new Date();
+            $id('gregorianDate').innerText = today.toLocaleDateString('zh-HK', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+            
+            try {
+                // 1. Get the base date string with Chinese month/year but usually Arabic days (e.g. 十一月15)
+                const lunarString = new Intl.DateTimeFormat('zh-HK-u-ca-chinese', { month: 'long', day: 'numeric' }).format(today);
+                
+                // 2. Regex replace numbers with Chinese chars
+                const fixedLunar = lunarString.replace(/(\d+)/g, function(match) {
+                    return toChineseNum(parseInt(match));
+                });
+
+                $id('lunarDate').innerHTML = `${fixedLunar}`;
+            } catch(e) {
+                console.log(e);
+                $id('lunarDate').innerHTML = `十一月吉日`;
+            }
+
+            updateAlmanac(); 
+
+            merit = localStorage.getItem('lamyMerit') ? parseInt(localStorage.getItem('lamyMerit')) : 0;
+            $id('meritCount').innerText = merit;
+            renderMessages();
+            rotateReminders();
+        };
+
+        function rotateReminders() {
+            const el = $id('reminderText'); let i = 0;
+            setInterval(() => { i = (i + 1) % reminders.length; el.style.opacity = 0; setTimeout(() => { el.innerText = reminders[i]; el.style.opacity = 1; }, 500); }, 5000);
+        }
+
+        const bgMusic = $id('bgMusic');
+        const birthdaySong = $id('birthdaySong');
+        const playSongBtn = $id('playSongBtn');
+
+        // Play Zen music initially
+        let playPromise = bgMusic.play();
+        if (playPromise !== undefined) { playPromise.catch(error => { document.addEventListener('click', startMusicOnce, { once: true }); }); }
+        function startMusicOnce() { 
+            // Only play if birthday song isn't playing
+            if(birthdaySong.paused) {
+                bgMusic.play().catch(e => console.log("Waiting for user interaction")); 
+                bgMusic.volume = 0.4; 
+            }
+        }
+
+        // --- BIRTHDAY SONG LOGIC ---
+        function toggleBirthdaySong() {
+            try {
+                if (birthdaySong.paused) {
+                    bgMusic.pause(); // Stop the Zen music
+                    birthdaySong.volume = 1.0; // Ensure volume is up
+                    
+                    const playPromise = birthdaySong.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            // Play started
+                            playSongBtn.innerHTML = '<i class="fas fa-pause"></i> 暫停修煉 (Pause Cultivation)';
+                            triggerFireworks();
+                        }).catch(error => {
+                            console.error("Music play error:", error);
+                            alert("播放失敗，請點擊畫面一下再試 (Play failed, please tap screen once and try again)");
+                        });
+                    }
+                    
+                    // When birthday song ends, resume Zen music
+                    birthdaySong.onended = function() {
+                        playSongBtn.innerHTML = '<i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)';
+                        bgMusic.play();
+                    };
+                } else {
+                    birthdaySong.pause();
+                    birthdaySong.currentTime = 0; // Reset to start
+                    playSongBtn.innerHTML = '<i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)';
+                    bgMusic.play(); // Resume Zen music
+                }
+            } catch (err) {
+                console.error("Audio Error:", err);
+            }
+        }
+
+        const quoteDisplay = $id('quoteDisplay');
+        function newQuote() { quoteDisplay.style.opacity = 0; setTimeout(() => { const randomQuote = buddhistQuotes[Math.floor(Math.random() * buddhistQuotes.length)]; quoteDisplay.innerText = `"${randomQuote}"`; quoteDisplay.style.opacity = 1; }, 300); }
+
+        // --- POTTERY GAME ---
+        let wheelSpeed = 0, progress = 0, isGameWon = false;
+        const rpmBar = $id('rpmBar'), progressBar = $id('progressBar'), wheel = $id('wheel'), clay = $id('virtualClay'), winMsg = $id('winUI'), masterpiece = $id('masterpiece'), gameControls = $id('gameControls');
+        const btnReplay = $id('btnReplay');
+        const blessingText = $id('blessingText');
+
+        // NEW: Prize structure with Blessing Text
+        const prizes = [
+            { 
+                img: "https://thumbnail.imgbin.com/10/1/16/chiikawa-cute-cat-doodle-wyqFKUnf_t.jpg", 
+                blessing: "【Chiikawa 賜福】<br>祝你日日好心情，食極唔肥！<br>(Blessing: Joyful days & zero calories!)" 
+            },
+            { 
+                img: "Fuk.png", 
+                blessing: "【福星高照】<br>貴人運爆棚，難關變坦途！<br>(Blessing: Great fortune & smooth paths!)" 
+            },
+            { 
+                img: "Luk.png", 
+                blessing: "【升職加薪】<br>財源滾滾來，花紅分最多！<br>(Blessing: Promotion & big bonuses!)" 
+            },
+            { 
+                img: "Sau.png", 
+                blessing: "【長命百歲】<br>身體健康，無病無痛，精神爽利！<br>(Blessing: Good health & longevity!)" 
+            }
+        ];
+
+        function kickWheel() { if (isGameWon) return; wheelSpeed += 15; if (wheelSpeed > 100) wheelSpeed = 100; startMusicOnce(); }
+        function updateGame() {
+            if (isGameWon) return;
+            wheelSpeed *= 0.99; if (wheelSpeed < 0) wheelSpeed = 0;
+            rpmBar.style.width = wheelSpeed + "%";
+            if (wheelSpeed >= 30 && wheelSpeed <= 80) progress += 0.8; else if (wheelSpeed > 80) progress -= 0.2;
+            if (progress < 0) progress = 0;
+            if (progress >= 100) { progress = 100; winGame(); }
+            progressBar.style.width = progress + "%";
+            wheel.style.transform = `rotate(${Date.now() / (105 - wheelSpeed)}rad)`;
+            if (progress < 100) {
+                let h = 100 + progress, w = 100 - (progress * 0.4);
+                clay.style.height = h + "px"; clay.style.width = w + "px"; clay.style.borderRadius = "50%";
+            }
+            requestAnimationFrame(updateGame);
+        }
+
+        function winGame() {
+            isGameWon = true;
+            gameControls.style.display = "none";
+            clay.style.display = "none";
+            
+            // Randomly select prize
+            const prize = prizes[Math.floor(Math.random() * prizes.length)];
+            $id('resultImage').src = prize.img;
+            blessingText.innerHTML = prize.blessing;
+
+            masterpiece.style.display = "block";
+            winMsg.style.display = "block";
+            
+            // COOLDOWN LOGIC: Hide replay button for 3 seconds
+            btnReplay.style.display = "none";
+            setTimeout(() => {
+                btnReplay.style.display = "inline-block";
+                btnReplay.classList.add('visible'); // Optional for fade in effect if added to CSS
+            }, 3000);
+
+            triggerFireworks();
+            playWoodenFishSound();
+        }
+
+        function resetGame() {
+            isGameWon = false; progress = 0; wheelSpeed = 0;
+            winMsg.style.display = "none";
+            gameControls.style.display = "block";
+            masterpiece.style.display = "none";
+            clay.style.display = "block";
+            clay.style.height = "100px"; clay.style.width = "100px";
+            updateGame();
+        }
+        updateGame();
+
+        // --- SOUNDS ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+
+        function playWoodenFishSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+            osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(1, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function tapWoodenFish(event) { playWoodenFishSound(); merit++; localStorage.setItem('lamyMerit', merit); $id('meritCount').innerText = merit; const container = document.querySelector('.muyu-container'); const span = document.createElement('span'); span.className = 'merit-pop'; span.innerText = '功德 +1'; const xOffset = (Math.random() - 0.5) * 50; span.style.left = `calc(50% + ${xOffset}px)`; span.style.top = '20%'; container.appendChild(span); setTimeout(() => { span.remove(); }, 1000); }
+
+        // --- TCM ---
+        const tcmContent = $id('tcmContent'), cameraSection = $id('cameraSection'), videoFeed = $id('videoFeed'), btnCamera = $id('btnCamera'), btnScan = $id('btnScan'), btnManual = $id('btnManual'), stampMark = $id('stampMark'), btnContainer = $id('btnContainer');
+        let stream = null;
+        let cameraPermissionDeniedInSession = false;
+
+        async function startCamera() {
+            startMusicOnce();
+            if (cameraPermissionDeniedInSession) {
+                alert("Camera access was previously denied for this session. Please enable camera permissions in your browser settings if you wish to use this feature. Proceeding with manual diagnosis.");
+                getPrescription(true);
+                return;
+            }
+
+            tcmContent.style.display = 'block';
+            tcmContent.innerHTML = '<h3><i class="fas fa-spinner fa-spin"></i> 神醫天眼啟動中...</h3>';
+            stampMark.style.display = 'none';
+            
+            const oldActionButtons = $id('actionButtons');
+            if (oldActionButtons) oldActionButtons.remove();
+
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                videoFeed.srcObject = stream;
+                cameraSection.style.display = 'block';
+                btnCamera.style.display = 'none';
+                btnScan.style.display = 'inline-block';
+                btnManual.style.display = 'none';
+            } catch (err) {
+                console.error("Camera access error:", err);
+                cameraPermissionDeniedInSession = true;
+                alert("未能開啟鏡頭。可能權限被拒或沒有鏡頭。已轉為手動抽籤。 (Failed to access camera. Permission denied or no camera found. Switching to manual draw.)");
+                getPrescription(true);
+                cameraSection.style.display = 'none';
+                btnCamera.style.display = 'inline-block';
+                btnManual.style.display = 'inline-block';
+                btnScan.style.display = 'none';
+            }
+        }
+
+        function analyzeFace() {
+            tcmContent.innerHTML = '<h3><i class="fas fa-microchip"></i> AI 正在分析氣色...</h3>';
+            videoFeed.pause();
+            playWoodenFishSound();
+            setTimeout(() => {
+                getPrescription(false);
+                if(stream) stream.getTracks().forEach(track => track.stop());
+                btnScan.style.display = 'none';
+            }, 2500);
+        }
+        
+        function getPrescription(isManual) {
+            if(isManual) {
+                startMusicOnce();
+                cameraSection.style.display = 'none';
+                btnCamera.style.display = 'inline-block'; 
+                btnManual.style.display = 'inline-block';
+                btnScan.style.display = 'none';
+            }
+            tcmContent.classList.add('fade-out');
+            setTimeout(() => {
+                const recipe = tcmRecipes[Math.floor(Math.random() * tcmRecipes.length)];
+                let ingHTML = ""; recipe.ingredients.forEach(ing => { ingHTML += `<li><i class="fas ${ing.icon}" style="color: ${ing.color}"></i> <div>${ing.text}</div></li>`; });
+                tcmContent.innerHTML = `<h3><i class="fas fa-file-prescription"></i> ${recipe.title}</h3><p style="font-style: italic; margin-top: 10px; color: #666;">${recipe.desc}</p><ul class="ingredients">${ingHTML}</ul><p style="font-weight: bold; margin-top: 1rem; color: var(--red-stamp);"><i class="fas fa-check-circle"></i> Lamy 專用 (Valid for 1 year)</p>`;
+                
+                let actionDiv = $id('actionButtons');
+                if(!actionDiv) {
+                    actionDiv = document.createElement('div');
+                    actionDiv.id = 'actionButtons';
+                    btnContainer.appendChild(actionDiv);
+                }
+                actionDiv.innerHTML = ''; 
+
+                let exportBtn = document.createElement('button'); exportBtn.id = 'btnExport'; exportBtn.className = 'btn-tcm btn-export'; exportBtn.innerHTML = '<i class="fas fa-download"></i> 下載藥方 (Save Image)'; exportBtn.onclick = exportTCM;
+                let redoBtn = document.createElement('button'); redoBtn.id = 'btnRedo'; redoBtn.className = 'btn-tcm btn-reset'; redoBtn.innerHTML = '<i class="fas fa-redo"></i> 再睇多次 (Scan Again)'; redoBtn.onclick = resetTCM; 
+                
+                actionDiv.appendChild(exportBtn);
+                actionDiv.appendChild(document.createElement('br'));
+                actionDiv.appendChild(redoBtn);
+                
+                stampMark.style.display = 'flex'; tcmContent.classList.remove('fade-out'); triggerFireworks();
+            }, 500);
+        }
+
+        function resetTCM() {
+            tcmContent.innerHTML = '<h3><i class="fas fa-user-md"></i> 等候診斷中...</h3>';
+            stampMark.style.display = 'none';
+            cameraSection.style.display = 'none';
+            if(stream) {
+                stream.getTracks().forEach(track => track.stop());
+                videoFeed.srcObject = null;
+                stream = null;
+            }
+            btnCamera.style.display = 'inline-block';
+            btnManual.style.display = 'inline-block';
+            btnScan.style.display = 'none';
+            const actions = $id('actionButtons');
+            if(actions) actions.remove();
+        }
+
+        // --- EXPORT FUNCTION ---
+        function exportTCM() {
+            const card = $id('tcmResultCard');
+            const btnArea = $id('btnContainer');
+            btnArea.style.display = 'none'; 
+            
+            html2canvas(card, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Lamy_Birthday_Prescription.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                btnArea.style.display = 'block';
+            }).catch(err => {
+                alert("Export failed. Please try on a modern browser!");
+                btnArea.style.display = 'block';
+            });
+        }
+
+        // --- BOARD ---
+        const wishesGrid = $id('wishesGrid');
+        function renderMessages() { wishesGrid.innerHTML = ''; messageBoardData.forEach(msg => { const card = document.createElement('div'); card.className = 'wish-card'; card.innerHTML = `<div class="wish-text">${msg.msg}</div><div class="wish-author">@ ${msg.name}</div><div class="wish-date">From Team</div>`; wishesGrid.prepend(card); }); }
+        function addMessage() { const nameInput = $id('inputName'); const msgInput = $id('inputMsg'); if (nameInput.value.trim() === "" || msgInput.value.trim() === "") { alert("請輸入名同埋祝福語！"); return; } const newMsg = { name: nameInput.value, msg: msgInput.value }; messageBoardData.push(newMsg); renderMessages(); nameInput.value = ""; msgInput.value = ""; playWoodenFishSound(); triggerFireworks(); }
+    </script>
+
+
+</body></html>

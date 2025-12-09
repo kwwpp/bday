@@ -1109,11 +1109,24 @@
             { title: "【佛系清心方】The Zen Chill", desc: "診斷結果：眉頭深鎖，可能被 Bug 煩擾！", ingredients: [{ icon: "fa-leaf", color: "var(--sage-dark)", text: "<strong>甘草:</strong> 調和百味。" }, { icon: "fa-mug-hot", color: "#FFFFE0", text: "<strong>菊花:</strong> 清熱降火。" }, { icon: "fa-wind", color: "#A9A9A9", text: "<strong>深呼吸:</strong> 免費最有效。" }] },
             { title: "【財源滾滾方】The Wealth Magnet", desc: "診斷結果：印堂發光，顯示就快發達！", ingredients: [{ icon: "fa-coins", color: "var(--gold)", text: "<strong>金蟬花:</strong> 招財進寶。" }, { icon: "fa-lemon", color: "#ffa500", text: "<strong>陳皮:</strong> 越陳越香。" }, { icon: "fa-trophy", color: "#FFD700", text: "<strong>薑:</strong> 做事快狠準。" }] }
         ];
+
+        /* --- UPDATED MESSAGE BOARD DATA --- */
         let messageBoardData = [
-            { name: "Alice", msg: "Happy Birthday Lamy! 祝你新一年創意爆棚，整陶藝整到開展覽！" },
-            { name: "Terence", msg: "生日快樂 Lamy！祝你做野順風順水，早收工，身體健康！" },
-            { name: "Maggie", msg: "Lamy Happy Birthday! 祝你青春常駐，日日都咁開心！" },
-            { name: "Brittney", msg: "Yo Lamy! 生日大快樂！祝你今年氣場全開，運氣爆燈！" }
+            { name: "Vicky", msg: "小八生日快樂！祝你身體健康 日日心平氣和 Happy 9up, Happy Life^*^" },
+            { name: "Venus", msg: "Happy birthday Lamy!!祝你身體健康, 要咩有咩!" },
+            { name: "Alice", msg: "生日快樂! 祝你早日學成歸來, 造福人群, 賺錢買花戴!" },
+            { name: "Terence", msg: "HBD! 祝林欣穎醫師係中醫班脫穎而出! 金榜提名! 陶藝由副業轉正! 夢想成真!" },
+            { name: "Maggie", msg: "Happy Birthday Lamy! 祝你成為陶藝大師+林醫師! 好快就會有唔同收入來源! 心情好，身體自然健康!" },
+            { name: "Kenny", msg: "Happy Birthday Lamy! 祝你醫術高明，幫我哋把脈醫好啲 Campaign performance! 身體健康！" },
+            { name: "Eden", msg: "Lamy 生日快樂！祝你 Pottery 作品愈整愈靚，中醫考試 1 Take Pass!" },
+            { name: "Zelcon", msg: "HBD Lamy! 祝你身體健康，成為廣告界既華佗！得閒幫我施針減壓 😂" },
+            { name: "Jennifer", msg: "Happy Birthday! 祝你美麗與智慧並重，陶藝同醫術都更上一層樓！" },
+            { name: "Tramy", msg: "生日大快樂 Lamy! 祝你日日開開心心，無憂無慮，做個快樂醫師！" },
+            { name: "Augustin", msg: "Happy Birthday Lamy! Wishing you great health and happiness. May your pottery be masterpiece level!" },
+            { name: "Jasmine", msg: "HBD Lamy! 祝你心想事成，身體健康，整多啲靚靚 Chiikawa 陶器！" },
+            { name: "Anige", msg: "Happy Birthday! 祝你越嚟越靚，把脈越嚟越準，早日成為一代名醫！" },
+            { name: "Matthew", msg: "Happy Birthday Lamy! 祝你工作順利，早收工，多啲時間鑽研中醫！" },
+            { name: "Minikay", msg: "Lamy HBD!! 祝你今年爆數 (快樂指數)，身體壯健，做個開心快活人！" }
         ];
 
         // --- CLOCK FUNCTION ---
@@ -1128,11 +1141,13 @@
             const excuses = [
                 "老細，今日 DSP 數據顯示我『五行缺 Click』，不宜操勞。<br>(DSP shows Five Elements lack Clicks.)",
                 "患上『急性 Pacing 焦慮症』，見到 Budget 燒唔郁就氣促。<br>(Acute Pacing Anxiety.)",
+		"患上『急性 CPM 過高眩暈症』，見到數字就頭暈。<br>(Acute High CPM Dizziness.)",
                 "由於長期望住 Dashboard，引發『數據型視網膜脫落』。<br>(Data-induced Retinal Detachment.)",
+		"今日忌『長時間坐立』，宜『光速閃人』。<br>(Taboo: Sitting; Lucky Action: Vanishing.)",
                 "我個『丹田』同個 Ad Server 的 Latency 同步唔到。<br>(Chakra out of sync with Ad Server Latency.)",
                 "今日通勝話我不宜 Setup，否則會觸犯『Brand Safety』。<br>(Almanac forbids Setup, risk of Brand Safety violation.)",
-                "我條腰話俾我聽，Creative 審批氣場唔對，需要平躺抗衡。<br>(Creative approval bad vibes, must lie down.)",
-                "醫師話我『Algorithm 虛耗過度』，唯一的藥方係 Shut down。<br>(Algorithm Exhaustion, cure is Shut Down.)",
+                "我條腰話俾我聽，Creative審批氣場唔對，需要躺平抗衡。<br>(Creative approval bad vibes, must lie down.)",
+                "醫師話我『Algorithm 虛耗過度』，唯一的藥方係熄柒。<br>(Algorithm Exhaustion, cure is Shut Down.)",
                 "今日忌『人手 Bidding』，宜『佛系優化』。<br>(Taboo: Manual Bid; Lucky: Zen Optimization.)",
                 "Pixel 指示我今日運程在 Server Room，我要去吸靈氣。<br>(Pixel guides me to Server Room for energy.)",
                 "我今日『腦電波』被 Adblock 擋住左，收唔到 Brief。<br>(Brain waves blocked by Adblock.)"
@@ -1159,8 +1174,8 @@
         // --- ALMANAC LOGIC ---
         function updateAlmanac() {
             // 1. Yi / Ji
-            const yiOptions = ["早走", "飲茶", "請假", "屈蛇", "拉坯", "網購", "吹水"];
-            const jiOptions = ["OT", "開會", "改需求", "出IO", "回Email", "通頂"];
+            const yiOptions = ["早走", "High CTR", "請假", "WFH", "拉坯", "Claim數", "吹水"];
+            const jiOptions = ["OT", "開會", "改需求", "改IO", "覆Email", "Present"];
             
             // Pick 2 random for each
             const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -1507,7 +1522,7 @@
             // UPDATE WIDGET TITLE
             const busTitleEl = document.querySelector('.bus-header-title');
             if(busCurrentRoute === '678') {
-                busTitleEl.innerHTML = '<i class="fas fa-bus-alt"></i> 678 號歸家轉化漏斗 (Route 678 Home Conversion Funnel)';
+                busTitleEl.innerHTML = '<i class="fas fa-bus-alt"></i> 678 歸家號 (Route 678 Home Conversion Funnel)';
             } else {
                  busTitleEl.innerHTML = `<i class="fas fa-bus-alt"></i> Route ${busCurrentRoute} Transport Protocol`;
             }
@@ -1947,15 +1962,15 @@
                 blessing: "【Chiikawa 賜福】<br>祝你日日好心情，食極唔肥！<br>(Blessing: Joyful days & zero calories!)" 
             },
             { 
-                img: "Fuk.png", 
+                img: "Fuk_NBG.png", 
                 blessing: "【福星高照】<br>貴人運爆棚，難關變坦途！<br>(Blessing: Great fortune & smooth paths!)" 
             },
             { 
-                img: "Luk.png", 
+                img: "Luk_NBG.png", 
                 blessing: "【升職加薪】<br>財源滾滾來，花紅分最多！<br>(Blessing: Promotion & big bonuses!)" 
             },
             { 
-                img: "Sau.png", 
+                img: "Sau_NBG.png", 
                 blessing: "【長命百歲】<br>身體健康，無病無痛，精神爽利！<br>(Blessing: Good health & longevity!)" 
             }
         ];

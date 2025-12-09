@@ -86,16 +86,6 @@
         }
         nav a:hover { color: var(--clay); }
 
-        /* Mobile specific adjustments */
-        @media (max-width: 768px) {
-            nav ul { gap: 0.8rem; font-size: 0.8rem; }
-            nav a { font-size: 0.75rem; }
-            html { scroll-padding-top: 160px; } /* More buffer for wrapped nav */
-            body { padding-top: 130px; }
-            header { padding-top: 2rem; }
-            .section-title { font-size: 1.8rem; }
-        }
-
         header { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
         header h1 { font-size: 3.5rem; color: var(--clay-dark); margin-bottom: 1rem; animation: fadeIn 1.5s ease-out forwards; }
         header p { font-size: 1.4rem; color: var(--sage-dark); font-weight: 400; animation: fadeIn 1.5s ease-out 0.5s forwards; }
@@ -130,11 +120,17 @@
             animation: fadeIn 1.5s ease-out 1s forwards, pulseText 2s infinite;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 15px;
             text-align: left;
+            line-height: 1.2;
         }
         .btn-music-player:hover { transform: scale(1.05); background: #fff; }
         .btn-music-player:active { transform: scale(0.95); }
+        
+        /* Hide mobile break by default on desktop */
+        .mobile-break { display: none; }
+        .btn-text-content { display: inline-block; }
 
         @keyframes pulseText { from { transform: scale(1); } to { transform: scale(1.05); } }
         .scroll-down { margin-top: 3rem; font-size: 2rem; color: var(--clay); animation: bounce 2s infinite; cursor: pointer; opacity: 0.7; }
@@ -213,9 +209,17 @@
             }
         }
         
-        .flip-card-container { background-color: transparent; height: 380px; perspective: 1000px; cursor: pointer; }
+        .flip-card-container { background-color: transparent; height: 380px; perspective: 1000px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; box-shadow: 0 15px 35px rgba(139, 90, 43, 0.15); border-radius: 20px; }
-        .flip-card-container:hover .flip-card-inner { transform: rotateY(180deg); }
+        
+        /* FIX: Only use hover effect on devices that support hover (Mouse) */
+        @media (hover: hover) {
+            .flip-card-container:hover .flip-card-inner { transform: rotateY(180deg); }
+        }
+        
+        /* FIX: Always flip if class is present (for Mobile Tap) */
+        .flip-card-container.flipped .flip-card-inner { transform: rotateY(180deg); }
+        
         .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 25px; box-sizing: border-box; }
         .flip-front { background-color: #fff; border: 2px solid white; color: var(--text); }
         .office-icon { font-size: 3.5rem; margin-bottom: 1rem; }
@@ -379,7 +383,7 @@
         .bus-stop-sub { font-size: 0.75rem; color: #888; }
         
         /* Bus Pills */
-        .bus-etas { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; min-width: 100px; }
+        .bus-etas { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; min-width: 80px; }
         .eta-pill { padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; }
         .eta-pill.kmb { background: #fde7ea; color: var(--kmb-color); }
         .eta-pill.ctb { background: #fff7d1; color: #b8860b; }
@@ -542,12 +546,66 @@
         .input-group { flex: 1; min-width: 200px; } .wish-form input, .wish-form textarea { width: 100%; padding: 10px; background: rgba(255,255,255,0.1); border: 1px solid #555; color: white; border-radius: 5px; font-family: 'Lato', sans-serif; } .wish-form textarea { height: 80px; resize: vertical; }
         .btn-submit { background: var(--gold); color: #1a1a1a; border: none; padding: 10px 25px; font-weight: bold; cursor: pointer; border-radius: 5px; height: fit-content; align-self: flex-end; transition: background 0.3s; } .btn-submit:hover { background: #fff; }
         .wishes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; width: 100%; } .wish-card { background: #2a2a2a; padding: 2rem; position: relative; transition: transform 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border-top: 4px solid var(--gold); } .wish-card:hover { transform: translateY(-5px); background: #333; }
-        .wish-text { margin-top: 0.5rem; font-size: 1.1rem; line-height: 1.6; min-height: 60px; } .wish-author { margin-top: 1.5rem; text-align: right; font-weight: bold; color: var(--sage); font-size: 1rem; font-family: 'Noto Serif TC', serif; } .wish-date { font-size: 0.7rem; color: #555; text-align: right; margin-top: 5px; }\n        footer { padding: 3rem; text-align: center; background: #000; color: #888; font-size: 0.9rem; }
+        .wish-text { margin-top: 0.5rem; font-size: 1.1rem; line-height: 1.6; min-height: 60px; } .wish-author { margin-top: 1.5rem; text-align: right; font-weight: bold; color: var(--sage); font-size: 1rem; font-family: 'Noto Serif TC', serif; } .wish-date { font-size: 0.7rem; color: #555; text-align: right; margin-top: 5px; }
+        footer { padding: 3rem; text-align: center; background: #000; color: #888; font-size: 0.9rem; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
         @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }
+
+        /* --- MOBILE SPECIFIC ADJUSTMENTS (NEW) --- */
+        @media (max-width: 768px) {
+            nav ul { gap: 0.8rem; font-size: 0.8rem; }
+            nav a { font-size: 0.75rem; }
+            html { scroll-padding-top: 160px; font-size: 14px; } /* Scale down base rem */
+            body { padding-top: 130px; }
+            header { padding-top: 2rem; min-height: 60vh; }
+            
+            /* Smaller Texts */
+            header h1 { font-size: 2.2rem; }
+            header p { font-size: 1rem; }
+            .section-title { font-size: 1.8rem; }
+            .quote-box { font-size: 1.4rem; padding: 10px; }
+            
+            /* Full Width Video */
+            .banner-video { width: 100%; height: auto; border-width: 3px; border-radius: 12px; }
+
+            /* FIX: Reduce button size on mobile */
+            .btn-music-player {
+                font-size: 0.9rem; 
+                padding: 10px 20px;
+                width: 90%; 
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            /* FIX: Show mobile break and center text */
+            .mobile-break { display: block; }
+            .btn-text-content { text-align: center; }
+
+            /* Office Cards - Ensure they look clickable */
+            .flip-card-container { height: 350px; }
+            .office-icon { font-size: 2.5rem; }
+            .office-title { font-size: 1.1rem; }
+            .office-hint { font-size: 0.7rem; }
+
+            /* Bus Layout Fixes */
+            .bus-header-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .bus-input-wrapper { width: 100%; }
+            .bus-input-wrapper input { flex: 1; }
+            .bus-header-title { font-size: 1rem; }
+
+            .bus-stop-item { padding: 8px 5px; gap: 5px; } /* Tighter padding */
+            .bus-stop-name { font-size: 0.85rem; }
+            .bus-seq { width: 15px; font-size: 0.7rem; }
+            .bus-etas { min-width: 60px; }
+            .eta-pill { font-size: 0.7rem; padding: 2px 5px; }
+            
+            .prescription-card { padding: 1.5rem; min-height: auto; }
+            .wish-form { padding: 1rem; }
+        }
+
     </style>
 </head>
 <body>
@@ -568,20 +626,20 @@
 
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
+            <li><a href="#home">主頁 (Home)</a></li>
             <li><a href="#pottery">拉坯 (Clay)</a></li>
             <li><a href="#buddhism">佛系 (Zen)</a></li>
-            <li><a href="#office-survival">AdTech 中醫</a></li>
+            <li><a href="#office-survival">養生指南 (Guide)</a></li>
             <li><a href="#transport">運程 (Traffic)</a></li>
             <li><a href="#wooden-fish">通勝 (Almanac)</a></li>
             <li><a href="#marksix">六合彩 (Luck)</a></li>
-            <li><a href="#tcm">望診 (Doctor)</a></li>
+            <li><a href="#tcm">智能望診 (Doctor)</a></li>
             <li><a href="#wishes">留言 (Board)</a></li>
         </ul>
     </nav>
 
     <header id="home">
-        <video class="banner-video" id="bannerVideo" controls="" poster="Chiikawa2.png">
+        <video class="banner-video" id="bannerVideo" controls="" poster="Chiikawa3.png">
             <source src="Chiikawa Bday Video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -589,7 +647,10 @@
         <p>祝你今年：心境好 Zen，作品好勁，身體好掂！<br><span style="font-size: 0.9rem; opacity: 0.8;">(May your mind be Zen, your art be powerful, and your health be great!)</span></p>
         
         <button class="btn-music-player" id="playSongBtn" onclick="toggleBirthdaySong()">
-            <i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)
+            <i class="fas fa-praying-hands"></i> 
+            <span class="btn-text-content">
+                啟動延年益壽 BGM <br class="mobile-break"> <small>(Play Longevity Tune)</small>
+            </span>
         </button>
 
         <div class="scroll-down" onclick="document.getElementById('pottery').scrollIntoView()"><i class="fas fa-chevron-down"></i></div>
@@ -598,7 +659,7 @@
     <section id="pottery">
         <h2 class="section-title">陶藝大挑戰<br><small>Clay Challenge</small></h2>
         <p style="max-width: 600px; text-align: center; margin-bottom: 1rem;">
-            Lamy, 快速撳 "踩油" Keep 住綠色區域 (Easy Mode)，<br>見證舊泥變身做可愛 Chiikawa 陶器!
+            快速撳 "踩油" Keep 住綠色區域 (Easy Mode)，<br>見證舊泥變身做可愛 Chiikawa 陶器!
         </p>
         
         <div class="game-area">
@@ -641,8 +702,9 @@
     </section>
 
     <section id="office-survival">
-        <h2 class="section-title">Programmatic 養生架構<br><small>Programmatic Wellness Architecture</small></h2>
+        <h2 class="section-title">Programmatic 養生指南<br><small>Programmatic Wellness Guide</small></h2>
         <p>Programmatic 瞬息萬變，用 TCM 秘技平衡你的 Pacing 與身心。</p>
+        <p style="font-size:0.8rem; color:#666; margin-top:5px;">(Tap card to flip / 點擊反轉)</p>
 
         <div class="office-grid">
             <!-- Card 1: Rage (Updated for Campaign Changes) -->
@@ -650,9 +712,9 @@
                 <div class="flip-card-inner">
                     <div class="flip-front">
                         <div class="office-icon">🔥</div>
-                        <div class="office-title">改 Campaign 火盛</div>
-                        <div class="office-desc">症狀：見到 Client 臨尾改 Creative，甚至想燒左個 DSP。</div>
-                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                        <div class="office-title">改 Brief 火盛</div>
+                        <div class="office-desc">症狀：見到 Client 臨尾先改 Brief，甚至想燒左個 DSP。</div>
+                        <div class="office-hint">👉 懸停/點擊急救 (Tap/Hover)</div>
                     </div>
                     <div class="flip-back">
                         <div class="cure-title">急救：降火清心</div>
@@ -675,7 +737,7 @@
                         <div class="office-icon">📊</div>
                         <div class="office-title">數據喪屍眼</div>
                         <div class="office-desc">症狀：長期望住 Dashboard，見到數字有重影，Retina 脫落。</div>
-                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                        <div class="office-hint">👉 懸停/點擊急救 (Tap/Hover)</div>
                     </div>
                     <div class="flip-back">
                         <div class="cure-title">急救：明目回魂</div>
@@ -698,7 +760,7 @@
                         <div class="office-icon">💤</div>
                         <div class="office-title">優化氣虛 (3PM)</div>
                         <div class="office-desc">症狀：飯後氣場轉弱，Optimization 冇力，靈魂出竅。</div>
-                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                        <div class="office-hint">👉 懸停/點擊急救 (Tap/Hover)</div>
                     </div>
                     <div class="flip-back">
                         <div class="cure-title">急救：補氣提神</div>
@@ -721,7 +783,7 @@
                         <div class="office-icon">📉</div>
                         <div class="office-title">競價焦慮症 (Bid Anxiety)</div>
                         <div class="office-desc">症狀：每5秒 Refresh 一次 DSP，見到 CPM 貴過金就手震，Pacing 唔夠數就心跳加速。</div>
-                        <div class="office-hint">👉 懸停急救 (Hover for cure)</div>
+                        <div class="office-hint">👉 懸停/點擊急救 (Tap/Hover)</div>
                     </div>
                     <div class="flip-back">
                         <div class="cure-title">急救：止蝕安神</div>
@@ -740,8 +802,8 @@
 
         <!-- Excuse Generator -->
         <div class="panic-box">
-            <h3 style="color: var(--clay-dark);">🚨 想早走？Programmatic 藉口產生器</h3>
-            <p style="margin-bottom:10px; color:#666;">Generate an AdTech excuse to leave early.</p>
+            <h3 style="color: var(--clay-dark);">🚨 想早走？中醫藉口產生器</h3>
+            <p style="margin-bottom:10px; color:#666;">Generate an TCM excuse to leave early.</p>
             <div id="excuseResult">Click button below...</div>
             <button class="btn-excuse" onclick="generateExcuse()"><i class="fas fa-magic"></i> 生成藉口 (Generate Excuse)</button>
         </div>
@@ -978,6 +1040,15 @@
             // Start Clock
             setInterval(updateTrafficClock, 1000);
             updateTrafficClock();
+
+            // Mobile Flip Logic
+            document.querySelectorAll('.flip-card-container').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                    // Optional: Play small sound on flip
+                    playWoodenFishSound();
+                });
+            });
         });
 
         const canvas = $id('celebrationCanvas');
@@ -1089,7 +1160,7 @@
         function updateAlmanac() {
             // 1. Yi / Ji
             const yiOptions = ["早走", "飲茶", "請假", "屈蛇", "拉坯", "網購", "吹水"];
-            const jiOptions = ["OT", "開會", "改需求", "Deploy", "回Email", "飲齋啡", "通頂"];
+            const jiOptions = ["OT", "開會", "改需求", "出IO", "回Email", "通頂"];
             
             // Pick 2 random for each
             const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -1826,6 +1897,7 @@
         // --- BIRTHDAY SONG LOGIC ---
         function toggleBirthdaySong() {
             try {
+                const btnContent = $id('playSongBtn');
                 if (birthdaySong.paused) {
                     bgMusic.pause(); // Stop the Zen music
                     birthdaySong.volume = 1.0; // Ensure volume is up
@@ -1835,7 +1907,7 @@
                     if (playPromise !== undefined) {
                         playPromise.then(_ => {
                             // Play started
-                            playSongBtn.innerHTML = '<i class="fas fa-pause"></i> 暫停修煉 (Pause Cultivation)';
+                            btnContent.innerHTML = `<i class="fas fa-pause"></i> <span class="btn-text-content">暫停修煉 <br class="mobile-break"> <small>(Pause Cultivation)</small></span>`;
                             triggerFireworks();
                         }).catch(error => {
                             console.error("Music play error:", error);
@@ -1845,13 +1917,13 @@
                     
                     // When birthday song ends, resume Zen music
                     birthdaySong.onended = function() {
-                        playSongBtn.innerHTML = '<i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)';
+                        btnContent.innerHTML = `<i class="fas fa-praying-hands"></i> <span class="btn-text-content">啟動延年益壽 BGM <br class="mobile-break"> <small>(Play Longevity Tune)</small></span>`;
                         bgMusic.play();
                     };
                 } else {
                     birthdaySong.pause();
                     birthdaySong.currentTime = 0; // Reset to start
-                    playSongBtn.innerHTML = '<i class="fas fa-praying-hands"></i> 啟動延年益壽 BGM (Play Longevity Tune)';
+                    btnContent.innerHTML = `<i class="fas fa-praying-hands"></i> <span class="btn-text-content">啟動延年益壽 BGM <br class="mobile-break"> <small>(Play Longevity Tune)</small></span>`;
                     bgMusic.play(); // Resume Zen music
                 }
             } catch (err) {
